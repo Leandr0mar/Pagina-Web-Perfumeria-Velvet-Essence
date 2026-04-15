@@ -1,24 +1,24 @@
 ﻿# ✨ Velvet Essence | Perfumería de Autor (Version 1.0)
 
 > **Sitio Web Estático Responsivo con Bootstrap 5.3.0**  
-> Proyecto ATF1 - Marcos de Desarrollo Web - UTP
+> Proyecto ATF1 - Marcos de Desarrollo Web
 
 ---
 
 ## 📌 Descripción del Proyecto
 
-**Velvet Essence** es un landing page completo que presenta una colección de perfumes exclusivos y de autor. El sitio es completamente responsivo e interactivo.
+**Velvet Essence** es un landing page completo que presenta una colección de perfumes exclusivos y de autor. El sitio es completamente responsivo e interactivo mediante el uso del framework Bootstrap.
 
-### ✨ Características Principales
+---
 
-- 🎨 Navbar responsive con menú colapsable
-- 💫 Hero section con imagen de fondo y call-to-action
-- 🛍️ 8 tarjetas de productos (4 hombres, 4 mujeres)
-- 📊 Tabla comparativa minimalista
-- 📝 Formulario de contacto con validación
-- 🔔 3 Modales (confirmación, términos, suscripción)
-- 📧 Formulario de suscripción en footer
-- 🎯 Diseño minimalista y elegante
+## 🚀 Cómo Ejecutar el Proyecto
+
+### ⚡ Opción 1: Abrir Directamente en Navegador
+
+1. Descargar/descomprimir el proyecto
+2. Hacer doble click en `index.html`
+
+### 🔧 Opción 2: Abrir el siguente Link CDN: https://leandr0mar.github.io/Pagina-Web-Perfumeria-Velvet-Essence/ 
 
 ---
 
@@ -167,19 +167,6 @@ Proyecto Pagina Web de Perfumeria con Bootstrap/
 
 ---
 
-## 🚀 Cómo Ejecutar el Proyecto
-
-### ⚡ Opción 1: Abrir Directamente en Navegador
-
-1. Descargar/descomprimir el proyecto
-2. Hacer doble click en `index.html`
-3. Se abrirá automáticamente en tu navegador
-4. ⚠️ **Nota:** Las fuentes de Google pueden no cargar sin servidor
-
-### 🔧 Opción 2: Abrir el siguente Link CDN: 
-
----
-
 ## 📱 Responsive Design Validado
 
 ### 📲 Mobile (375px)
@@ -192,14 +179,10 @@ Proyecto Pagina Web de Perfumeria con Bootstrap/
 ### 💻 Tablet (768px)
 ✅ Navbar expandido (`navbar-expand-lg`)  
 ✅ Grid de productos: 2 columnas (`col-sm-6`)  
-✅ Tabla visible y responsive  
-✅ Espacios y márgenes ajustados  
 
 ### 🖥️ Desktop (≥1200px)
 ✅ Navbar completo con todos los enlaces  
-✅ Grid de productos: 4 columnas (`col-lg-3`)  
-✅ Tabla minimalista con bordes suaves  
-✅ Layout óptimo con márgenes generosos  
+✅ Grid de productos: 4 columnas (`col-lg-3`)   
 
 **📸 Evidencia:** Ver carpeta `capturas/` con capturas reales
 
@@ -208,18 +191,16 @@ Proyecto Pagina Web de Perfumeria con Bootstrap/
 ## 🎨 Características de Estilo
 
 ### 🎭 Diseño Visual
-- **Tipografía elegante:**
+- **Tipografía**
   - Playfair Display para títulos
   - Montserrat para cuerpo
 - **Paleta minimalista:**
   - Negro: `#1a1a1a`
   - Dorado: `#C5A059`
   - Blanco: `#ffffff`
-- **Espacios en blanco** generosos
-- **Bordes suaves** y **sombras sutiles** para profundidad
 
 ### 💫 Interactividad
-- Formularios con validación en tiempo real
+- Formularios con validación
 - Animaciones suaves en transiciones
 - Efectos hover en elementos interactivos
 - Modales centrados y accesibles
@@ -244,31 +225,3 @@ Proyecto Pagina Web de Perfumeria con Bootstrap/
 | **JavaScript** | ES6+ | Validación e interactividad |
 | **Google Fonts** | - | Tipografía personalizada |
 | **Bootstrap Icons** | 1.13.1 | Iconos vectoriales |
-
----
-
-## ✔️ Cumplimiento de Rúbrica APF1
-
-| Criterio | Puntuaje | Estado |
-|----------|----------|--------|
-| Bootstrap integrado (CDN + JS) | 10% | ✅ **COMPLETO** |
-| Componentes obligatorios | 50% | ✅ **TODOS IMPLEMENTADOS** |
-| Responsive validado (capturas) | 20% | ✅ **MOBILE + DESKTOP** |
-| Orden del proyecto + nombres + README | 10% | ✅ **BIEN ORGANIZADO** |
-| Calidad visual y consistencia | 10% | ✅ **MINIMALISTA ELEGANTE** |
-| **TOTAL** | **100%** | **✅ ENTREGABLE COMPLETO** |
-
----
-
-## 📞 Información de Contacto
-
-```
-Proyecto:  Velvet Essence - Página Web de Perfumería
-Curso:     Marcos de Desarrollo Web
-Campus:    Universidad Tecnológica del Perú (UTP)
-Ciclo:     6
-Versión:   1.0
-Fecha:     Abril 2026
-
-Email:     u2309079@utp.edu.pe
-```
