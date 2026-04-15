@@ -1,7 +1,6 @@
 ﻿# ✨ Velvet Essence | Perfumería de Autor (Version 1.0)
 
 > **Sitio Web Estático Responsivo con Bootstrap 5.3.0**  
-> Proyecto ATF1 - Marcos de Desarrollo Web
 
 ---
 
@@ -40,7 +39,7 @@
 
 ---
 
-## ✅ Checklist de Componentes (ATF1)
+## ✅ Checklist de Componentes
 
 ### 🏗️ Estructura Base
 
@@ -94,17 +93,6 @@
 - [x] **Modal de confirmación de envío** - Feedback al enviar contacto
 - [x] **Modal de términos y condiciones** - Muestra T&C completos
 - [x] **Modal de suscripción** - Confirmación de suscripción exitosa
-
-#### Utilities Bootstrap (15+ utilizados)
-```
-Spacing        | p-*, m-*, mt-*, mb-*, py-*, px-*
-Text           | text-*, text-uppercase, text-center, fw-bold, text-muted
-Display        | d-flex, d-none, d-block, d-sm-block
-Background     | bg-*, bg-light, bg-dark
-Border         | border-*, border-0, border-bottom, rounded, rounded-0
-Shadow         | shadow-sm
-Grid           | container, row, col-*, justify-content-*, align-items-*
-```
 
 ### ⚡ Interactividad y Validación
 
