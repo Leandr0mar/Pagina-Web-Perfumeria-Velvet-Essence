@@ -18,7 +18,7 @@
 1. Descargar/descomprimir el proyecto
 2. Hacer doble click en `index.html`
 
-### 🔧 Opción 2: Abrir el siguente Link CDN: https://leandr0mar.github.io/Pagina-Web-Perfumeria-Velvet-Essence/ 
+### 🔧 Opción 2: Abrir el siguente Link: https://leandr0mar.github.io/Pagina-Web-Perfumeria-Velvet-Essence/ 
 
 ---
 
