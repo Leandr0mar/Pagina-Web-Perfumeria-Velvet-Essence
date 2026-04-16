@@ -3,8 +3,7 @@
 > **Sitio Web Estático Responsivo con Bootstrap 5.3.0**  
 
 Integrantes:
-
-  -Candia Falcón Leandro Omar
+  - Candia Falcón Leandro Omar
   - Evaristo Ramos Hilder
   - Tirado Pauccar Pamela Mayra
 
