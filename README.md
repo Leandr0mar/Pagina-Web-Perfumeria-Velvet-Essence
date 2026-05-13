@@ -1,6 +1,6 @@
-﻿# ✨ Velvet Essence | Perfumería de Autor (Version 1.0)
+﻿# ✨ Velvet Essence | Perfumería de Autor (Version 1.5)
 
-> **Sitio Web Estático Responsivo con Bootstrap 5.3.0**  
+> **Sitio Web + Backend Spring Boot / Thymeleaf**
 
 Integrantes:
   - Candia Falcón Leandro Omar
@@ -11,7 +11,15 @@ Integrantes:
 
 ## 📌 Descripción del Proyecto
 
-**Velvet Essence** es un landing page completo que presenta una colección de perfumes exclusivos y de autor. El sitio es completamente responsivo e interactivo mediante el uso del framework Bootstrap.
+**Velvet Essence** es un proyecto híbrido que combina un landing page responsivo mediante Bootstrap con una aplicación Java Spring Boot.
+
+La versión actual incluye:
+- Landing page principal con Bootstrap 5 y diseño responsivo.
+- Vista dinámica de detalle de producto con Thymeleaf en `perfumeria/src/main/resources/templates/productos/productoDetalle.html`.
+- Servicio `productoService` que entrega datos desde una lista en memoria.
+- Controlador `DetalleController` para la ruta `/inicio/producto/detalle/{id}`.
+- Mensaje estilizado de producto no encontrado.
+- Footer fijo al final de la página y carrito que respeta el encabezado.
 
 ---
 
@@ -22,7 +30,14 @@ Integrantes:
 1. Descargar/descomprimir el proyecto
 2. Hacer doble click en `index.html`
 
-### 🔧 Opción 2: Abrir el siguente Link: https://leandr0mar.github.io/Pagina-Web-Perfumeria-Velvet-Essence/ 
+### 🔧 Opción 2: Ejecutar la aplicación Spring Boot localmente
+
+1. Abrir terminal en la carpeta `perfumeria`
+2. Ejecutar `./mvnw.cmd spring-boot:run`
+3. Abrir en el navegador `http://localhost:8081/inicio`
+4. Ver el detalle de un producto en `http://localhost:8081/inicio/producto/detalle/1`
+
+> Nota: el backend se encuentra en `perfumeria/src/main/java/com/example/perfumeria`, y las plantillas Thymeleaf en `perfumeria/src/main/resources/templates`. 
 
 ---
 
@@ -51,6 +66,7 @@ Integrantes:
 - [x] Sitio estático de 1 landing page completa
 - [x] HTML5 semántico y bien estructurado
 - [x] Responsive design (mobile-first)
+- [x] Aplicación Spring Boot integrada en `perfumeria`
 
 ### 🎯 Componentes Bootstrap Obligatorios
 
@@ -63,158 +79,73 @@ Integrantes:
 #### Layout y Grid
 - [x] **Grid Layout** con `container` + `row` + `col-*`
   - Grid de productos: `col-sm-6 col-lg-3`
-  - Secciones con imágenes: `col-lg-7` / `col-lg-5`
 
 #### Componentes Visuales
 - [x] **Cards** - 8 tarjetas de productos (4 hombres, 4 mujeres)
   - Imágenes responsivas
   - Información del producto
   - Botones de acción
-- [x] **Tabla estilizada** - Tabla minimalista con 2 colecciones
-  - Encabezados claros
-  - Bordes suaves
-  - Información de intensidad, fijación y ocasión
+- [x] **Página de detalle** con contenido dinámico de producto y notificación de no encontrado
 
 #### Contenido Multimedia
-- [x] **Imágenes responsive** - 6+ imágenes con `img-fluid`
-  - Hero section
-  - Productos
-  - Secciones informativas
+- [x] **Imágenes responsive** con `img-fluid`
 
 #### Formularios
-- [x] **Formulario de contacto** con 5 campos:
-  - Nombre (text input)
-  - Email (email input)
-  - Asunto (select dropdown)
-  - Mensaje (textarea)
-  - Términos y condiciones (checkbox)
-  - Validación JavaScript en tiempo real
+- [x] **Formulario de contacto** con validación JavaScript
+- [x] **Formulario de suscripción** en el footer con validación de email
 
-- [x] **Formulario de suscripción** en footer:
-  - Email con validación regex
-  - Feedback visual de errores
+---
 
-#### Modales
-- [x] **Modal de confirmación de envío** - Feedback al enviar contacto
-- [x] **Modal de términos y condiciones** - Muestra T&C completos
-- [x] **Modal de suscripción** - Confirmación de suscripción exitosa
+## 🧠 Back-end y MVC
 
-### ⚡ Interactividad y Validación
-
-- [x] **Validación de formulario contacto**
-  - Previene envío sin campos completos
-  - Marca campos inválidos con borde rojo (`.is-invalid`)
-  - Muestra mensaje de error dinámico
-  - Abre modal de confirmación al enviar
-  - Auto-reset después de 2 segundos
-
-- [x] **Validación de suscripción**
-  - Regex de email: `/^[^\s@]+@[^\s@]+\.[^\s@]+$/`
-  - Feedback visual en tiempo real
-  - Modal de confirmación
-
-- [x] **Efectos interactivos**
-  - Fade-in animation al cargar página
-  - Zoom en imágenes de productos al pasar cursor
-  - Navbar color change al hacer scroll
-  - Hover effects en cards y botones
+- `perfumeria/src/main/java/com/example/perfumeria/Controller/DetalleController.java`
+- `perfumeria/src/main/java/com/example/perfumeria/Services/productoService.java`
+- `perfumeria/src/main/resources/templates/productos/productoDetalle.html`
 
 ---
 
 ## 📁 Estructura del Proyecto
 
 ```
-Proyecto Pagina Web de Perfumeria con Bootstrap/
-│
-├── 📄 index.html                    # Página principal
-├── 📄 README.md                     # Documentación (este archivo)
-│
-├── 📁 css/
-│   └── style.css                    # Estilos personalizados
-│
-├── 📁 js/
-│   └── script.js                    # Lógica JavaScript
-│
-├── 📁 assets/
-│   ├── 📁 logo/
-│   │   └── logo-dorado.png
-│   ├── 📁 portada/
-│   │   ├── hero2.jpg               # Imagen hero
-│   │   ├── 4.jpg                   # Sección "Por qué elegir"
-│   │   └── 5.jpg                   # Sección "Familias olfativas"
-│   ├── 📁 hombre/                  # 4 imágenes de productos
-│   │   ├── Loci-n-para-hombre-black-gravitation-100ml-Miniso-1-26444.webp
-│   │   ├── Perfume Homem 1.webp
-│   │   ├── Perfume-Essencial-Clasico-Masculino-100ml-Natura-1.webp
-│   │   └── perfume-masculino-temptation-yanbal-100-ml.webp
-│   └── 📁 mujer/                   # 4 imágenes de productos
-│       ├── Dolce Gabbana.webp
-│       ├── Imagenes Esika.webp
-│       ├── Miss L'Bel.webp
-│       └── Pasion Yanbal.webp
-│
-└── 📁 capturas/
-    ├── mobile-375px.png             # Screenshot responsivo móvil
-    └── desktop-1200px.png           # Screenshot responsivo desktop
+Pagina-Web-Perfumeria-Velvet-Essence/
+├── README.md
+├── index.html
+├── css/
+├── js/
+├── assets/
+└── perfumeria/
+    ├── pom.xml
+    ├── mvnw
+    ├── mvnw.cmd
+    ├── src/
+        ├── main/
+            ├── java/com/example/perfumeria/
+            ├── resources/
+                ├── static/
+                └── templates/
 ```
-
----
-
-## 📱 Responsive Design Validado
-
-### 📲 Mobile (375px)
-✅ Navbar colapsado con hamburguesa  
-✅ Grid de productos: 1 columna  
-✅ Tabla oculta en móviles (`d-none d-sm-block`)  
-✅ Imágenes adaptadas con `img-fluid`  
-✅ Formularios full-width y legibles  
-
-### 💻 Tablet (768px)
-✅ Navbar expandido (`navbar-expand-lg`)  
-✅ Grid de productos: 2 columnas (`col-sm-6`)  
-
-### 🖥️ Desktop (≥1200px)
-✅ Navbar completo con todos los enlaces  
-✅ Grid de productos: 4 columnas (`col-lg-3`)   
-
-**📸 Evidencia:** Ver carpeta `capturas/` con capturas reales
 
 ---
 
 ## 🎨 Características de Estilo
 
-### 🎭 Diseño Visual
-- **Tipografía**
-  - Playfair Display para títulos
-  - Montserrat para cuerpo
-- **Paleta minimalista:**
-  - Negro: `#1a1a1a`
-  - Dorado: `#C5A059`
-  - Blanco: `#ffffff`
-
-### 💫 Interactividad
-- Formularios con validación
-- Animaciones suaves en transiciones
-- Efectos hover en elementos interactivos
-- Modales centrados y accesibles
-- Feedback visual clara para el usuario
-
-### ♿ Accesibilidad
-- Labels en todos los campos de formulario
-- Alt text en todas las imágenes
-- HTML semántico
-- Contraste de colores adecuado
-- Navegación clara y coherente
+- **Playfair Display** para títulos
+- **Montserrat** para contenido
+- Paleta minimalista con acentos dorados
+- Animaciones suaves y botones estilizados
+- Mensajes y formularios con feedback visual claro
 
 ---
 
 ## 🛠️ Tecnologías Utilizadas
 
-| Tecnología | Versión | Propósito |
-|-----------|---------|----------|
-| **Bootstrap** | 5.3.0 | Framework responsive |
-| **HTML5** | - | Estructura semántica |
-| **CSS3** | - | Estilos personalizados |
-| **JavaScript** | ES6+ | Validación e interactividad |
-| **Google Fonts** | - | Tipografía personalizada |
-| **Bootstrap Icons** | 1.13.1 | Iconos vectoriales |
+| Tecnología | Propósito |
+|-----------|----------|
+| Bootstrap 5.3.0 | Framework responsive |
+| Spring Boot | Backend Java |
+| Thymeleaf | Plantillas dinámicas |
+| Java | Lógica del servidor |
+| HTML5/CSS3 | Estructura y estilos |
+| JavaScript | Interactividad |
+| Google Fonts | Tipografía |
+| Bootstrap Icons | Iconos vectoriales |

@@ -1,0 +1,1060 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ===== FUENTE PRINCIPAL: Montserrat ===== */
+body {
+    background: #f9f6f0;
+    font-family: 'Montserrat', sans-serif;
+    color: #2c2b28;
+}
+
+/* ===== TARJETA PRINCIPAL ===== */
+.product-card {
+    background: white;
+    border-radius: 32px;
+    box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.08);
+    padding: 70px;
+    transition: box-shadow 0.3s ease;
+}
+
+.product-card:hover {
+    box-shadow: 0 30px 45px -15px rgba(0, 0, 0, 0.12);
+}
+
+/* ===== AUMENTAR SEPARACIÓN ENTRE COLUMNAS ===== */
+.product-card .row {
+    --bs-gutter-x: 48px;
+}
+
+/* ===== ASEGURAR QUE LA IMAGEN NO CAMBIE DE TAMAÑO ===== */
+.product-image-wrapper {
+    background: transparent;
+    padding: 0px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: none;  /* Evita animaciones que cambien tamaño */
+}
+
+.product-img-main {
+    max-width: 100%;
+    width: auto;
+    height: auto;
+    max-height: 500px;  /* Tamaño máximo razonable */
+}
+/* Línea vertical decorativa entre imagen y texto */
+.product-image-wrapper::after {
+    content: '';
+    position: absolute;
+    right: -24px;
+    top: 15%;
+    height: 70%;
+    width: 1.5px;
+    background: linear-gradient(
+        to bottom,
+        transparent,
+        #decbb6,
+        transparent
+    );
+    opacity: 0.6;
+}
+/* ===== CORREGIR SUPERPOSICIÓN EN MÓVIL ===== */
+@media (max-width: 768px) {
+    .product-image-wrapper {
+        position: relative !important;  /* ← Fuerza a que no sea sticky */
+        top: auto !important;
+        left: auto !important;
+        width: 100% !important;
+        margin-bottom: 20px;
+    }
+    
+    .product-info-right {
+        padding-left: 0;
+        margin-top: 0;
+    }
+    
+    .col-md-6:first-child {
+        margin-bottom: 20px;
+    }
+}
+
+
+/* ===== IMAGEN PRINCIPAL DEL PRODUCTO ===== */
+/* 
+   En esta sección se configura la imagen principal
+   del perfume. También se agrega un efecto hover
+   para dar una animación elegante al pasar el mouse.
+*/
+
+.product-img-main {
+    max-width: 85%;
+    height: auto;
+    transition: transform 0.4s ease;
+}
+
+.product-img-main:hover {
+    transform: scale(1.03);
+}
+
+
+/* ===== BADGE DE DESCUENTO ===== */
+/* 
+   Este badge muestra el porcentaje de descuento
+   del producto. Se posiciona encima de la imagen
+   para destacar visualmente la promoción.
+*/
+
+.discount-badge {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: #c0392b;
+    color: white;
+    font-weight: 800;
+    font-size: 18px;
+    padding: 8px 16px;
+    border-radius: 40px;
+    box-shadow: 0 4px 12px rgba(192, 57, 43, 0.3);
+    z-index: 2;
+    font-family: 'Montserrat', sans-serif;
+}
+
+
+/* ===== COLUMNA DERECHA DEL PRODUCTO ===== */
+/* 
+   Aquí se diseña toda la información principal
+   del perfume:
+   - Marca
+   - Nombre
+   - Descripción
+   - SKU
+   - Precios
+*/
+
+.product-info-right {
+    padding-left: 20px;
+}
+
+
+/* ===== ETIQUETA DE MARCA ===== */
+/* 
+   Pequeña etiqueta decorativa donde se muestra
+   la marca o categoría del perfume.
+*/
+
+.brand-tag {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    color: #a67c52;
+    font-weight: 600;
+    background: #faf3e8;
+    padding: 5px 14px;
+    border-radius: 30px;
+    display: inline-block;
+    font-family: 'Playfair Display', serif;
+}
+
+
+/* ===== TÍTULO PRINCIPAL DEL PERFUME ===== */
+/* 
+   Se personaliza el nombre del producto usando
+   una fuente elegante y un tamaño grande
+   para que sea el elemento más llamativo.
+*/
+
+.product-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: #2b2a27;
+    line-height: 1.2;
+    margin-top: 12px;
+    margin-bottom: 8px;
+}
+
+
+/* ===== VOLUMEN DEL PERFUME ===== */
+/* 
+   Aquí se muestra la cantidad del producto
+   en mililitros.
+*/
+
+.volume {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 20px;
+    color: #7f6b5a;
+}
+
+
+/* ===== SUBTÍTULO DECORATIVO ===== */
+/* 
+   Texto secundario usado para resaltar
+   alguna característica especial del perfume.
+*/
+
+.product-subtitle {
+    font-family: 'Playfair Display', serif;
+    font-size: 14px;
+    color: #b38b60;
+    font-weight: 500;
+    font-style: italic;
+    margin-bottom: 16px;
+    border-left: 3px solid #e0c8b0;
+    padding-left: 12px;
+}
+
+
+/* ===== DESCRIPCIÓN DEL PERFUME ===== */
+/* 
+   Contiene la explicación del aroma,
+   notas olfativas y características
+   principales del producto.
+*/
+
+.fragrance-description {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px;
+    line-height: 1.55;
+    color: #4a443e;
+    margin: 16px 0;
+}
+
+
+/* ===== INFORMACIÓN SKU ===== */
+/* 
+   Código interno o identificador del producto.
+*/
+
+.sku-info {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    color: #7e6a58;
+    background: #fcf9f5;
+    display: inline-block;
+    padding: 6px 16px;
+    border-radius: 30px;
+}
+
+
+/* ===== SECCIÓN DE PRECIOS ===== */
+/* 
+   Aquí se organizan:
+   - Precio actual
+   - Precio antiguo
+   - Badge de ahorro
+*/
+
+.price-wrapper {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+
+/* ===== PRECIO ACTUAL ===== */
+/* 
+   Precio principal destacado del producto.
+*/
+
+.current-price {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 36px;
+    font-weight: 800;
+    color: #2c2b28;
+}
+
+/* ===== PRECIO ANTIGUO ===== */
+/* 
+   Precio anterior mostrado con línea tachada
+   para evidenciar el descuento.
+*/
+
+.old-price {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    color: #b0a088;
+    text-decoration: line-through;
+}
+
+
+/* ===== BADGE DE AHORRO ===== */
+/* 
+   Etiqueta visual que indica cuánto
+   dinero ahorra el cliente.
+*/
+
+.save-badge {
+    font-family: 'Montserrat', sans-serif;
+    background: #f0e5d8;
+    color: #b1624b;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 4px 14px;
+    border-radius: 40px;
+}
+
+
+/* Selector de cantidad RECTANGULAR */
+.cart-actions {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin: 20px 0 24px;
+}
+
+
+/* ===== SELECTOR DE CANTIDAD ===== */
+/* 
+   Esta sección permite al usuario aumentar
+   o disminuir la cantidad de productos antes
+   de añadirlos al carrito.
+*/
+
+.quantity-selector {
+    display: flex;
+    align-items: center;
+    border: 1px solid #e2d9d0;
+    border-radius: 0px;
+    background: white;
+}
+
+
+/* ===== BOTONES DE CANTIDAD ===== */
+/* 
+   Botones utilizados para sumar o restar
+   la cantidad del producto.
+*/
+
+.qty-btn {
+    font-family: 'Montserrat', sans-serif;
+    background: #faf5ef;
+    border: none;
+    width: 48px;
+    height: 52px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: 0.2s;
+    border-radius: 0px;
+}
+
+.qty-btn:hover {
+    background: #e8dfd4;
+}
+
+
+/* ===== INPUT DE CANTIDAD ===== */
+/* 
+   Campo donde se visualiza el número
+   de unidades seleccionadas.
+*/
+
+.qty-input {
+    font-family: 'Montserrat', sans-serif;
+    width: 60px;
+    text-align: center;
+    border: none;
+    font-weight: 700;
+    font-size: 16px;
+    outline: none;
+}
+
+
+/* ===== BOTÓN AÑADIR AL CARRITO ===== */
+/* 
+   Botón principal para agregar el producto
+   seleccionado al carrito de compras.
+*/
+
+.add-to-cart-btn {
+    font-family: 'Montserrat', sans-serif;
+    flex: 1;
+    background: #2b2a27;
+    border: none;
+    color: white;
+    font-weight: 700;
+    font-size: 15px;
+    padding: 0 24px;
+    border-radius: 0px;
+    transition: all 0.25s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    height: 52px;
+}
+
+.add-to-cart-btn:hover {
+    background: #4a3b2e;
+    transform: scale(0.98);
+}
+
+
+/* ===== BADGES DE CARACTERÍSTICAS ===== */
+/* 
+   Etiquetas pequeñas usadas para mostrar
+   beneficios o características del producto.
+*/
+
+.badge-feature {
+    font-family: 'Montserrat', sans-serif;
+    background: #f6f1ea;
+    padding: 6px 16px;
+    border-radius: 40px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #7a6248;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-right: 10px;
+    margin-bottom: 8px;
+}
+
+
+/* ===== ACORDEÓN DE INFORMACIÓN ===== */
+/* 
+   Sección desplegable donde se muestra
+   información adicional del producto:
+   - Descripción
+   - Ingredientes
+   - Envíos
+   - Detalles extra
+*/
+
+.accordion-custom {
+    border-top: 1px solid #ece3da;
+    border-bottom: 1px solid #ece3da;
+    margin: 8px 0;
+}
+
+
+/* ===== ITEM DEL ACORDEÓN ===== */
+/* 
+   Cada bloque individual del acordeón.
+*/
+
+.accordion-item-custom {
+    border-bottom: 1px solid #f3ede6;
+}
+
+
+/* ===== CABECERA DEL ACORDEÓN ===== */
+/* 
+   Área clickeable que permite abrir
+   o cerrar el contenido del acordeón.
+*/
+
+.accordion-header-custom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 0;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    color: #3a322a;
+    cursor: pointer;
+    transition: 0.3s;
+    letter-spacing: 0.3px;
+}
+
+.accordion-header-custom:hover {
+    color: #b38b60;
+}
+
+.accordion-header-custom span:first-child {
+    font-family: 'Playfair Display', serif;
+}
+
+
+/* ===== ICONO DEL ACORDEÓN ===== */
+/* 
+   Ícono visual que rota cuando el
+   acordeón está activo.
+*/
+
+.accordion-icon {
+    transition: transform 0.3s;
+    font-size: 1.2rem;
+}
+
+
+/* ===== CONTENIDO DEL ACORDEÓN ===== */
+/* 
+   Contenido oculto que aparece al
+   abrir el acordeón.
+*/
+
+.accordion-content-custom {
+    font-family: 'Montserrat', sans-serif;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-out;
+    color: #6b5c4e;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.accordion-content-custom p,
+.accordion-content-custom ul {
+    padding-bottom: 18px;
+    margin: 0;
+}
+
+
+/* ===== ESTADO ACTIVO DEL ACORDEÓN ===== */
+/* 
+   Cuando el acordeón está abierto:
+   - El ícono rota
+   - El contenido se expande
+*/
+
+.accordion-item-custom.active .accordion-icon {
+    transform: rotate(45deg);
+}
+
+.accordion-item-custom.active .accordion-content-custom {
+    max-height: 1000px;
+}
+
+
+/* ===== RECOMENDACIONES ===== */
+/* 
+   Caja decorativa donde se muestran
+   recomendaciones o sugerencias relacionadas
+   al producto.
+*/
+
+.recommendations {
+    background: #fefaf5;
+    border-radius: 20px;
+    padding: 20px;
+    border-left: 4px solid #decbb6;
+    margin-top: 20px;
+}
+
+.recommendations h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #5a4534;
+    font-weight: 700;
+}
+
+.recommendations p {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    color: #8f7a64;
+    line-height: 1.55;
+    margin: 0;
+}
+
+
+/* ===== SECCIÓN DE PRODUCTOS ===== */
+/* 
+   Contenedor principal donde se muestran
+   los productos relacionados en formato grilla.
+*/
+
+.products-section {
+    margin-top: 60px;
+    margin-bottom: 60px;
+}
+
+
+/* ===== TÍTULO DE LA SECCIÓN ===== */
+/* 
+   Título principal de la sección de productos.
+*/
+
+.section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 600;
+    color: #2b2a27;
+    text-align: center;
+    margin-bottom: 48px;
+    letter-spacing: -0.3px;
+}
+
+
+/* ===== GRID DE PRODUCTOS ===== */
+/* 
+   Organización automática de las tarjetas
+   usando CSS Grid.
+*/
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 35px 30px;
+    justify-items: center;
+    align-items: stretch;
+}
+
+
+/* ===== TARJETA DE PRODUCTO ===== */
+/* 
+   Diseño individual de cada producto
+   mostrado en la grilla.
+*/
+
+.product-item {
+    background: white;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 8px 20px -6px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    width: 100%;
+    max-width: 300px;
+}
+
+.product-item:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.12);
+}
+
+
+/* ===== IMAGEN DEL PRODUCTO ===== */
+/* 
+   Sección donde se muestra la imagen
+   del perfume dentro de la tarjeta.
+*/
+
+.product-item-image {
+    background: transparent;
+    padding: 30px 20px;
+    text-align: center;
+}
+
+.product-item-image img {
+    max-width: 70%;
+    height: auto;
+    transition: transform 0.3s;
+}
+
+.product-item:hover .product-item-image img {
+    transform: scale(1.05);
+}
+
+
+/* ===== INFORMACIÓN DEL PRODUCTO ===== */
+/* 
+   Contiene el texto informativo:
+   marca, nombre y detalles del perfume.
+*/
+
+.product-item-info {
+    padding: 20px;
+    text-align: center;
+}
+
+
+/* ===== MARCA DEL PRODUCTO ===== */
+/* 
+   Texto pequeño usado para mostrar
+   la marca o categoría del perfume.
+*/
+
+.product-item-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #a67c52;
+    font-weight: 600;
+}
+
+/* ===== NOMBRE DEL PRODUCTO ===== */
+/* 
+   Nombre principal mostrado dentro
+   de cada tarjeta de producto.
+*/
+
+.product-item-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: #2b2a27;
+    margin: 8px 0;
+    line-height: 1.3;
+}
+
+
+/* ===== PRECIO DEL PRODUCTO ===== */
+/* 
+   Precio actual destacado del perfume.
+*/
+
+.product-item-price {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    font-weight: 800;
+    color: #2c2b28;
+    margin: 8px 0;
+}
+
+
+/* ===== PRECIO ANTIGUO ===== */
+/* 
+   Precio anterior mostrado con línea tachada
+   para indicar el descuento.
+*/
+
+.product-item-old-price {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    color: #b0a088;
+    text-decoration: line-through;
+    margin-left: 8px;
+}
+
+
+/* ===== CARRITO FLOTANTE ===== */
+/* 
+   Botón flotante del carrito que permanece
+   visible en la pantalla.
+*/
+
+.cart-float {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 1050;
+}
+
+
+/* ===== BOTÓN DEL CARRITO ===== */
+/* 
+   Diseño principal del botón flotante
+   del carrito de compras.
+*/
+
+.cart-icon-btn {
+    font-family: 'Montserrat', sans-serif;
+    background: #2b2a27;
+    border: none;
+    width: auto;
+    min-width: 140px;
+    height: 60px;
+    border-radius: 20px;
+    font-size: 16px;
+    font-weight: 600;
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+    transition: 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 0 20px;
+}
+
+.cart-icon-btn:hover {
+    background: #b38b60;
+    transform: scale(1.02);
+}
+
+
+/* ===== SIDEBAR DEL CARRITO ===== */
+/* 
+   Panel lateral que se abre para mostrar
+   los productos agregados al carrito.
+*/
+
+.cart-sidebar {
+    position: fixed;
+    top: 90px; /* empieza debajo del header fijo */
+    right: -400px;
+    width: 380px;
+    max-width: 90vw;
+    height: calc(100vh - 90px);
+    background: white;
+    box-shadow: -5px 0 30px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    transition: right 0.3s ease;
+    z-index: 1060;
+}
+
+.cart-sidebar.open {
+    right: 0;
+}
+
+
+/* ===== CABECERA DEL CARRITO ===== */
+/* 
+   Parte superior del carrito donde
+   aparece el título y botón de cierre.
+*/
+
+.cart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 22px;
+    border-bottom: 1px solid #f0eae3;
+}
+
+.cart-header h5 {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    margin: 0;
+}
+
+
+/* ===== BOTÓN CERRAR ===== */
+/* 
+   Botón utilizado para cerrar
+   el carrito lateral.
+*/
+
+.btn-close-custom {
+    background: none;
+    border: none;
+    font-size: 22px;
+    cursor: pointer;
+    color: #6b5c4e;
+}
+
+
+/* ===== LISTA DE PRODUCTOS DEL CARRITO ===== */
+/* 
+   Área donde se muestran todos los
+   productos añadidos al carrito.
+*/
+
+.cart-items {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #f0eae3;
+    font-size: 14px;
+}
+
+
+/* ===== ELIMINAR PRODUCTO ===== */
+/* 
+   Botón para quitar productos
+   del carrito de compras.
+*/
+
+.remove-item {
+    background: none;
+    border: none;
+    color: #c0392b;
+    cursor: pointer;
+}
+
+
+/* ===== PIE DEL CARRITO ===== */
+/* 
+   Parte inferior donde se muestra
+   el total y botón de pago.
+*/
+
+.cart-footer {
+    padding: 20px;
+    border-top: 1px solid #f0eae3;
+}
+
+.cart-total {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+}
+
+
+/* ===== BOTÓN CHECKOUT ===== */
+/* 
+   Botón final para proceder
+   con la compra del producto.
+*/
+
+.checkout-btn {
+    font-family: 'Montserrat', sans-serif;
+    background: #b38b60;
+    border: none;
+    padding: 12px;
+    border-radius: 0px;
+    color: white;
+    font-weight: 600;
+    transition: 0.2s;
+    width: 100%;
+}
+
+.checkout-btn:hover {
+    background: #9b6e4c;
+}
+
+
+/* ===== MENSAJE DE CARRITO VACÍO ===== */
+/* 
+   Texto mostrado cuando no hay
+   productos agregados al carrito.
+*/
+
+.empty-cart {
+    font-family: 'Montserrat', sans-serif;
+    color: #ada392;
+    margin-top: 40px;
+    text-align: center;
+}
+
+
+/* ===== RESPONSIVE ===== */
+/* 
+   Adaptaciones para tablets y móviles
+   con el fin de mejorar la visualización
+   en pantallas pequeñas.
+*/
+
+@media (max-width: 768px) {
+
+    .product-card {
+        padding: 24px;
+    }
+
+    .product-image-wrapper {
+        min-height: auto;
+        padding: 15px;
+    }
+
+    /* Oculta la línea decorativa en móvil */
+    .product-image-wrapper::after {
+        display: none;
+    }
+
+    .product-img-main {
+        max-width: 70%;
+    }
+
+    .product-title {
+        font-size: 26px;
+    }
+
+    .current-price {
+        font-size: 28px;
+    }
+
+    .cart-actions {
+        flex-direction: column;
+    }
+
+    .quantity-selector {
+        width: fit-content;
+    }
+
+    .product-info-right {
+        padding-left: 0;
+        margin-top: 20px;
+    }
+
+    .product-grid {
+        gap: 25px;
+    }
+
+    .product-item {
+        max-width: 260px;
+    }
+}
+
+
+/* ===== RESPONSIVE PARA CELULARES ===== */
+/* 
+   Ajustes adicionales para pantallas
+   más pequeñas.
+*/
+
+@media (max-width: 576px) {
+
+    .discount-badge {
+        font-size: 14px;
+        padding: 5px 12px;
+        top: 12px;
+        left: 12px;
+    }
+
+    .product-item-name {
+        font-size: 14px;
+    }
+
+    .product-grid {
+        gap: 20px;
+    }
+
+    .product-item {
+        max-width: 100%;
+    }
+}
+/* ===== AJUSTES PARA MÓVIL ===== */
+@media (max-width: 768px) {
+    /* Barra de compra fija abajo */
+    .cart-actions {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: white;
+        padding: 12px 16px;
+        box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+        display: flex;
+        flex-direction: row !important;
+        gap: 12px;
+        margin: 0 !important;
+    }
+    
+    /* Carrito flotante MÁS ARRIBA para que no tape */
+    .cart-float {
+        bottom: 80px;
+        right: 20px;
+        z-index: 1001;
+    }
+    
+    /* Botones más grandes */
+    .add-to-cart-btn {
+        height: 52px;
+        flex: 2;
+    }
+    
+    .quantity-selector {
+        flex: 1;
+        height: 52px;
+    }
+    
+    .qty-btn {
+        width: 48px;
+        height: 52px;
+    }
+    
+    .qty-input {
+        width: 55px;
+        height: 52px;
+    }
+    
+    /* Espacio para que no tape el contenido */
+    .product-info-right {
+        padding-bottom: 100px;
+    }
+}
+

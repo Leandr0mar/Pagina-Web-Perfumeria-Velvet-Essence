@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle del Producto</title>
+
+    <!-- Bootstrap 5 CSS + Icons + Google Fonts -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap"
+        rel="stylesheet">
+    <!-- CSS Personalizado -->
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/productoDetalle.css">
+
+</head>
+
+<body class="detalle-body">
+
+    <!-- NAVEGACIÓN DE CABECERA - Barra superior con logo y menú -->
+    <nav class="navbar navbar-expand-lg fixed-top custom-navbar">
+        <div class="container">
+            <!-- Logo y nombre de la marca (parte izquierda del navbar) -->
+            <a class="navbar-brand logo d-flex align-items-center" href="#">
+                 <img src="assets/logo/logo-dorado.png" alt="Logo Velvet Essence" width="40" height="40" class="d-inline-block align-text-top me-2">
+                 Velvet Essence
+            </a>
+
+            <!-- Botón hamburguesa que aparece en móviles (navbar colapsado) -->
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Menú colapsable con enlaces de navegación e iconos -->
+            <div class="collapse navbar-collapse justify-content-between" id="menu">
+                <!-- Enlaces del menú (Inicio, Perfumes, etc.) -->
+                <ul class="navbar-nav mx-auto text-center">
+                    <li class="nav-item"><a class="nav-link active" href="/">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Perfumes</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Colecciones</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/inicio/nosotros">Nosotros</a></li>
+                </ul>
+
+                <!-- Iconos de búsqueda y carrito de compras (parte derecha) -->
+                <div class="d-flex align-items-center justify-content-center gap-4 py-3 py-lg-0 mfk-icons">
+                    <!-- Icono de búsqueda -->
+                    <div class="search-box">
+                        <i class="bi bi-search fs-5 icon-hover"></i>
+                    </div>
+                    <!-- Icono de carrito -->
+                    <i class="bi bi-bag fs-5 icon-hover"></i>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="page-content">
+
+    <div class="container py-5 py-md-5" th:if="${perfume != null}">
+    </div>
+    
+    <div class="container py-5 py-md-5" th:if="${perfume != null}">
+        <!-- Tarjeta principal con fila de 2 columnas -->
+        <div class="product-card p-5">
+            <div class="row g-4 align-items-start">
+
+                <!-- COLUMNA IZQUIERDA: IMAGEN -->
+                <div class="col-12 col-md-6">
+                    <div class="product-image-left d-flex justify-content-center align-items-center">
+                        <!-- imagen del producto -->
+                        <img th:src="@{${perfume.imagen}}"
+                            th:alt="${perfume.nombre}" class="product-img-main img-fluid">
+                    </div>
+                </div>
+
+                <!-- COLUMNA DERECHA: TEXTO + INFORMACIÓN -->
+                <div class="col-12 col-md-6">
+                    <div class="product-info-right">
+
+                        <!-- Marca / Categoría -->
+                        <div class="brand-category mb-2">
+                            <span class="brand-tag" th:text="${perfume.marca}">Marca</span>
+                        </div>
+
+                        <!-- Título -->
+                        <h1 class="product-title">
+                            <span th:text="${perfume.nombre}">Nombre</span>
+                            <br>
+                            <span class="volume" th:text="${perfume.volumen}">90 ml</span>
+                        </h1>
+                        <p class="product-subtitle" th:text="${perfume.categoria}">Eau de Parfum</p>
+
+                        <!-- Descripción del aroma -->
+                        <p class="fragrance-description" th:text="${perfume.presentacion}"></p>
+
+
+                        <!-- Disponibilidad -->
+                        <div class="sku-info mb-3" th:if="${perfume.stock > 0}">
+                            <i class="bi bi-check-circle-fill text-success me-1"></i> 
+                            <strong>Disponible</strong> · stock:
+                            <span th:text="${perfume.stock}">25</span>
+                        </div>
+
+
+                        <div class="sku-info mb-3" th:unless="${perfume.stock > 0}">
+                            <i class="bi bi-x-circle-fill text-danger me-1"></i> <strong>No disponible</strong>
+                        </div>
+
+
+
+                        <div th:if="${perfume.stock > 0}">
+                            <!-- Precio -->
+                            <div class="price-wrapper mb-4">
+                                <span class="current-price" th:text="${'S/ ' + perfume.precio}">S/ 189</span>
+                            </div>
+
+                            <!-- Selector de cantidad + botón -->
+                            <div class="cart-actions mb-4">
+                                <div class="quantity-selector">
+                                    <button class="qty-btn minus"><i class="bi bi-dash-lg"></i></button>
+                                    <input type="number" value="1" min="1" max="10" step="1" class="qty-input">
+                                    <button class="qty-btn plus"><i class="bi bi-plus-lg"></i></button>
+                                </div>
+                                <button class="add-to-cart-btn"
+                                    th:attr="data-name=${perfume.nombre}, data-price=${perfume.precio}">
+                                    <i class="bi bi-bag-plus"></i> Añadir al carrito
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Características del producto (badges) -->
+                        <div class="product-features mb-4">
+                            <span class="badge-feature"><i class="bi bi-flower1"></i> Aroma principal: <span th:text="${perfume.familiaOlfativa}">Floral</span></span>
+                            <span class="badge-feature"><i class="bi bi-heart"></i> Cruelty Free</span>
+                            <span class="badge-feature"><i class="bi bi-droplet"></i> Contiene alcohol</span>
+                        </div>
+
+
+                        <!-- ACORDEONES (Descripción, Modo de Uso, Más Info) -->
+                         
+                        <div class="accordion-custom">
+                            <div class="accordion-item-custom">
+                                <div class="accordion-header-custom">
+                                    <span>Descripción</span>
+                                    <i class="bi bi-plus-lg accordion-icon"></i>
+                                </div>
+                                <!-- ingresamos un contenido para la descripcion -->
+                                <div class="accordion-content-custom">
+                                    <p th:text="${perfume.descripcion}"></p>
+                                </div>
+                            </div>
+
+
+                            <div class="accordion-item-custom">
+                                <div class="accordion-header-custom">
+                                    <span>Modo de Uso</span>
+                                    <i class="bi bi-plus-lg accordion-icon"></i>
+                                </div>
+                                <!-- ingresamos un contenido para el modo de uso -->
+                                <div class="accordion-content-custom">
+                                    <p th:text="${perfume.modoDeUso}"></p>
+                                </div>
+                            </div>
+
+
+                            <div class="accordion-item-custom">
+                                <div class="accordion-header-custom">
+                                    <span>Más Información</span>
+                                    <i class="bi bi-plus-lg accordion-icon"></i>
+                                </div>
+                                <!-- ingresamos un contenido para más información -->
+                                <div class="accordion-content-custom">
+                                    <ul class="mb-0">
+                                        <li>Familia olfativa: <span th:text="${perfume.familiaOlfativa}">Floral almizclada</span></li>
+                                        <li>Notas de salida:
+                                            <ul>
+                                                <li th:each="nota : ${perfume.notaSalida}" th:text="${nota}">Nota</li>
+                                            </ul>
+                                        </li>
+                                        <li>Notas de corazón:
+                                            <ul>
+                                                <li th:each="nota : ${perfume.notaCorazon}" th:text="${nota}">Nota</li>
+                                            </ul>
+                                        </li>
+                                        <li>Notas de fondo:
+                                            <ul>
+                                                <li th:each="nota : ${perfume.notaFondo}" th:text="${nota}">Nota</li>
+                                            </ul>
+                                        </li>
+                                        <li>Volumen: <span th:text="${perfume.volumen}">90 ml</span></li>
+                                        <li>País de origen: <span th:text="${perfume.paisorigen}">Brasil</span></li>
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Recomendaciones (igual a la imagen) -->
+                        <div class="recommendations mt-4">
+                            <h4><i class="bi bi-shield-check"></i> Recomendaciones</h4>
+                            <p>Protege tu fragancia de la luz directa del sol y del calor, de lo contrario podría
+                                alterarse la composición de la fragancia y pasar a ser un triste recuerdo de tu aroma
+                                favorito.</p>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="container py-4 py-md-5 notfound-panel" th:unless="${perfume != null}">
+        <div class="notfound-card">
+            <div class="notfound-icon mb-3">
+                <i class="bi bi-exclamation-circle-fill"></i>
+            </div>
+            <h2>Producto no encontrado</h2>
+            <p>Lo sentimos, el producto solicitado no existe o ya no está disponible. Puedes regresar al inicio para seguir explorando.</p>
+            <a href="/inicio" class="btn btn-notfound mt-4">Volver a inicio</a>
+        </div>
+    </div>
+
+    </main>
+
+    <!-- CARRITO FLOTANTE 
+     en la parte donde se  muestra un carrito flotante, al hacer una compra de algun 
+     producto ahi es donde se visualizara nuestros productso comprados-->
+    <div class="cart-float">
+        <button class="cart-icon-btn" id="cartToggle">
+            <i class="bi bi-cart3"></i> <span id="cartCount">0</span>
+        </button>
+
+        <div class="cart-sidebar" id="cartSidebar">
+            <div class="cart-header">
+                <h5 class="mb-0"><i class="bi bi-bag-check"></i> Mi Carrito</h5>
+                <button class="btn-close-custom" id="closeCart"><i class="bi bi-x-lg"></i></button>
+            </div>
+            <div class="cart-items" id="cartItems">
+                <p class="empty-cart text-center">🛒 Aún no tienes productos</p>
+            </div>
+            <div class="cart-footer">
+                <div class="cart-total d-flex justify-content-between mb-3">
+                    <span><strong>Total:</strong></span>
+                    <strong id="cartTotalPrice">S/ 0.00</strong>
+                </div>
+                <button class="checkout-btn w-100"><i class="bi bi-credit-card"></i> Finalizar compra</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PIE DE PÁGINA (FOOTER) - Información de contacto y enlaces -->
+    <footer class="footer pt-5 pb-3 mt-5">
+        <div class="container">
+            <div class="row">
+
+                <!-- Sección de marca (izquierda) -->
+                <div class="col-md-4 mb-4 text-center"> 
+                    <h2>VELVET ESSENCE</h2>
+                    <p>Fragancias exclusivas que reflejan tu esencia y personalidad.</p>
+                </div>
+
+                <!-- Sección de navegación (enlaces del menú) -->
+                <div class="col-md-2 mb-4 text-center">
+                    <h5>Menu</h5>
+                    <a href="#">Inicio</a><br>
+                    <a href="#">Perfumes</a><br>
+                    <a href="#">Colecciones</a><br>
+                    <a href="#">Nosotros</a>
+                </div>
+
+                <!-- Sección de contacto (teléfono y email) -->
+                <div class="col-md-3 mb-4 text-center">
+                    <h5>Contacto</h5>
+                    <p>Lima, Perú</p>
+                    <p>+51 999 999 999</p>
+                    <p>contacto@velvet.com</p>
+                </div>
+
+                <!-- Sección de suscripción (formulario de email con validación) -->
+                <div class="col-md-3 mb-4 text-center">
+                    <h5>Suscríbete</h5>
+                    <p>Recibe novedades y ofertas exclusivas.</p>
+                    <!-- Formulario de suscripción con validación JavaScript -->
+                    <form id="subscribeForm">
+                        <!-- Campo de email obligatorio -->
+                        <input type="email" class="form-control mb-2 rounded-0" id="emailSuscripcion" placeholder="Tu email" required>
+                        <!-- Alerta de error (oculta por defecto) -->
+                        <div id="errorSubscribe" class="alert alert-danger alert-sm d-none mb-2" role="alert" style="font-size: 12px;">
+                            Por favor ingresa un email válido
+                        </div>
+                        <!-- Botón de envío con evento submit -->
+                        <button type="submit" class="btn btn-dark rounded-0 w-100">Enviar</button>
+                    </form>
+                </div>
+
+            </div>
+
+            <!-- Copyright y versión -->
+            <div class="footer-bottom text-center">
+                <p class="mb-0">
+                    © 2026 Velvet Essence — v1.5
+                </p>
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS + tu script -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/productoDetalle.js"></script>
+    <script src="/js/script.js"></script>
+
+</body>
+
+</html>
