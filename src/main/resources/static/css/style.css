@@ -142,16 +142,68 @@ footer.footer {
     color: #C5A059;                           /* Cambia a dorado */
 }
 
+/* Botones de autenticación en el navbar */
+.navbar-auth-buttons .btn-auth {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 0.55rem 0.95rem;
+    border-radius: 0;
+    font-weight: 700;
+    transition: all 0.25s ease;
+}
+
+.navbar-auth-buttons .btn-auth-login {
+    background: transparent;
+    color: #2b2a27;
+    border: 1px solid #2b2a27;
+}
+
+.navbar-auth-buttons .btn-auth-login:hover {
+    color: #C5A059;
+    border-color: #C5A059;
+    background: rgba(197, 160, 89, 0.08);
+}
+
+.navbar-auth-buttons .btn-auth-register {
+    background: #C5A059;
+    color: #ffffff;
+    border: 1px solid #C5A059;
+}
+
+.navbar-auth-buttons .btn-auth-register:hover {
+    background: #9b7a3f;
+    border-color: #9b7a3f;
+    color: #ffffff;
+}
+
+.navbar-user-greeting {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
 /* ===== HERO SECTION (Banner principal) ===== */
 .hero {
-    height: 100vh;                            /* Ocupar toda la altura de la pantalla */
-    background: url('../assets/portada/hero2.jpg') center/cover no-repeat;  /* Imagen de fondo */
+     min-height: 100vh;
+    background: url('../assets/portada/hero2.jpg') center center/cover no-repeat;
     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
+    text-align: center;
+    padding: 160px 20px 80px;
 }
-
+.custom-navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
 /* Capa oscura sobre la imagen (mejora legibilidad del texto) */
 .hero-overlay {
     position: absolute;
@@ -166,24 +218,41 @@ footer.footer {
 /* Contenido del hero (título + descripción) */
 .hero-content {
     position: relative;
-    z-index: 2;                               /* Encima de todo (texto visible) */
+    z-index: 2;
+    max-width: 900px;                      /* Encima de todo (texto visible) */
 }
 
 /* Título principal grande */
 .luxury-title {
-    font-family: 'Playfair Display', serif;   /* Tipografía elegante */
-    font-size: 4.5rem;
-    font-weight: 400;                         /* Regular (no bold) para elegancia */
-    line-height: 1.1;                         /* Altura de línea compacta */
+    font-family: 'Playfair Display', serif;
+    font-size: 6rem;
+    font-weight: 400;
+    line-height: 1.1;
+    color: white;
+    margin-bottom: 25px;                  /* Altura de línea compacta */
 }
 
 /* Párrafo descriptivo */
 .lead {
-    font-size: 1.1rem;
-    font-weight: 300;                         /* Más delgado, elegante */
+   font-size: 1.4rem;
+    font-weight: 300;
     letter-spacing: 1px;
+    color: white;
 }
 
+@media (max-width: 768px) {
+    .luxury-title {
+        font-size: 3.2rem;
+    }
+
+    .lead {
+        font-size: 1rem;
+    }
+
+    .hero {
+        padding-top: 140px;
+    }
+}
 /* ===== BOTONES ===== */
 /* Botón principal del hero */
 .btn-luxury {

@@ -1,0 +1,199 @@
+/* RESET GENERAL */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #ffffff; 
+    color: #1a1a1a;
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 0.5px;
+}
+
+/* CONTENEDOR AJUSTADO CON MARGENES DE 25PX */
+.container {
+    max-width: 1350px; 
+    margin: 0 auto;
+    padding: 0 25px;
+    width: 100%;
+}
+
+/* HERO BANNER DE PORTADA */
+.hero-banner {
+    position: relative;
+    width: 100%;
+    height: 75vh;
+    min-height: 520px;
+    background-image: url('/assets/portada/hero.jpg');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 140px 60px 40px;
+}
+
+.hero-banner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.15);
+    z-index: 1;
+}
+
+.hero-title {
+    position: relative;
+    z-index: 2;
+    font-family: 'Cormorant Garamond', serif;
+    color: #ffffff;
+    font-size: clamp(3rem, 4vw, 4.5rem);
+    font-weight: 300;
+    line-height: 1.05;
+    letter-spacing: 1px;
+    max-width: 680px;
+    margin-right: 1rem;
+}
+
+/* BLOQUE DE INTRODUCCIÓN BAJO LA PORTADA - MODIFICADO A EXTREMO A EXTREMO */
+.intro-container {
+    width: 100%;          /* Ocupa el ancho total de la pantalla */
+    margin: 50px 0 30px 0; /* Sin márgenes automáticos a los lados */
+    padding: 0 25px;      /* Alineación estética con la rejilla de productos */
+}
+
+.intro-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    width: 100%;          /* Se estira completamente sin topes */
+    line-height: 1.8;
+    color: #222222;
+    font-weight: 300;
+    text-align: justify;  /* Justificado para una simetría limpia y elegante */
+}
+
+.intro-text::first-letter {
+    font-size: 4rem;
+    float: left;
+    margin-right: 12px;
+    line-height: 0.85;
+    font-weight: 400;
+    color: #1a1a1a;
+}
+
+.separator {
+    max-width: 1350px;
+    margin: 30px auto;
+    border: 0;
+    border-top: 1px solid #eeeeee;
+}
+
+/* REJILLA ULTRA COMPACTA CON GAP DE 25PX */
+.editorial-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr); 
+    gap: 25px;
+    margin-bottom: 60px;
+}
+
+.collection-item {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+
+/* CONTENEDOR DE IMAGEN */
+.img-container {
+    background-color: #fafafa;
+    overflow: hidden;
+    margin-bottom: 1.2rem; 
+    width: 100%;
+    aspect-ratio: 4 / 3; 
+}
+
+.collection-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.7s ease;
+}
+
+.collection-item:hover .collection-img {
+    transform: scale(1.02);
+}
+
+/* ESTILO DE TEXTOS DE LAS TARJETAS */
+.item-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.7rem; 
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.6rem;
+    color: #1a1a1a;
+}
+
+.item-desc {
+    font-size: 0.85rem;
+    color: #444444;
+    font-weight: 300;
+    line-height: 1.6;
+    margin-bottom: 1.2rem;
+}
+
+/* LINK "DESCUBRIR" */
+.link-discover {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #1a1a1a;
+    text-decoration: none;
+    border-bottom: 1px solid #1a1a1a;
+    padding-bottom: 2px;
+    align-self: flex-start; 
+    transition: all 0.3s ease;
+}
+
+.link-discover:hover {
+    color: #bfa37a; 
+    border-bottom-color: #bfa37a;
+}
+
+footer {
+    text-align: center;
+    padding: 40px 0;
+    font-size: 0.75rem;
+    color: #888888;
+    border-top: 1px solid #f2f2f2;
+    margin-top: 40px;
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 768px) {
+    .container {
+        padding: 0 15px; 
+    }
+    /* Mantiene la consistencia del padding en móviles */
+    .intro-container {
+        padding: 0 15px; 
+    }
+    .hero-banner {
+        padding: 40px 20px;
+        height: 45vh;
+    }
+    .hero-title {
+        font-size: 2.2rem;
+    }
+    .editorial-grid {
+        gap: 30px; 
+    }
+}
+
+@media (min-width: 768px) {
+    .editorial-grid {
+        grid-template-columns: repeat(2, 1fr) !important; 
+    }
+}

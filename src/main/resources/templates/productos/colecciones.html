@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Colecciones de Marcas | Velvet Essence</title>
+    <!-- Fuentes de Lujo -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Montserrat:wght@200;300;400&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Estilos personalizados -->
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/colecciones.css">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg fixed-top custom-navbar">
+        <div class="container-fluid px-4">
+            <!-- Logo y nombre de la marca (parte izquierda del navbar) -->
+            <a class="navbar-brand logo d-flex align-items-center" href="/inicio">
+                 <img src="assets/logo/logo-dorado.png" alt="Logo Velvet Essence" width="40" height="40" class="d-inline-block align-text-top me-2">
+                 Velvet Essence
+            </a>
+
+
+            <!-- Contenedor que agrupa Iconos + Hamburguesa solo en celular -->
+            <div class="d-flex align-items-center justify-content-between d-lg-none ms-auto gap-3">
+                
+                <!-- Iconos de búsqueda y carrito (en fila gracias a d-flex) -->
+                <div class="search-box d-flex gap-4">
+                    <i class="bi bi-search fs-5 icon-hover"></i>
+                    <i class="bi bi-bag fs-5 icon-hover"></i>
+                </div>
+
+                <!-- Botón hamburguesa -->
+                <button class="navbar-toggler border-0 p-0" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+            </div>
+
+            <!-- Menú colapsable con enlaces de navegación e iconos -->
+            <div class="collapse navbar-collapse justify-content-between px-4" id="menu">
+                <!-- Enlaces del menú (Inicio, Perfumes, etc.) -->
+                <ul class="navbar-nav mx-auto text-center">
+                    <li class="nav-item"><a class="nav-link active" href="/inicio">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="">Perfumes</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/colecciones">Colecciones</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/nosotros">Nosotros</a></li>
+                    <ul id="mobileAuthList" class="navbar-nav mx-auto text-center d-lg-none mt-3">
+                        <li class="nav-item"><a class="nav-link" href="/iniciar-sesion">Iniciar sesión</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/registrarse">Registrarse</a></li>
+                    </ul>
+                </ul>
+                    <!-- Botones de sesión -->
+                <div id="desktopAuthSection" class="navbar-auth-buttons d-none d-lg-flex align-items-center gap-4">
+                    
+                    <!-- SOLUCIÓN: Agregada la clase 'd-flex' aquí para que funcione el gap-4 -->
+                    <div class="search-box d-flex align-items-center justify-content-center gap-4">
+                        <i class="bi bi-search fs-5 icon-hover"></i>
+                        <i class="bi bi-bag fs-5 icon-hover"></i>
+                    </div>
+                    
+                    <!-- Botones de acceso (parte derecha) -->
+                    <div class="d-flex align-items-center justify-content-center gap-3 py-3 py-lg-0 mfk-icons">
+                        <a href="/iniciar-sesion" class="btn btn-auth btn-auth-login">Iniciar sesión</a>
+                        <a href="/registrarse" class="btn btn-auth btn-auth-register">Registrarse</a>
+                    </div>
+                </div> 
+            </div>
+        </div>
+    </nav>
+
+    <!-- PORTADA / HERO BANNER -->
+    <header class="hero-banner">
+        <h1 class="hero-title">Velvet<br>Essence<br>Colecciones</h1>
+    </header>
+
+    <!-- TEXTO INTRODUCTORIO CON LETRA CAPITAL -->
+    <section class="intro-container">
+        <p class="intro-text">
+            Este armario olfativo se ha diseñado teniendo en cuenta las múltiples facetas de la feminidad y de la masculinidad, para que pueda expresar cada día una parte de su personalidad a través de las firmas de alta perfumería más aclamadas del mundo.
+        </p>
+    </section>
+
+    <div class="container">
+        <hr class="separator">
+    </div>
+
+    <!-- REJILLA CON ENFOQUE COMPACTO (16 FRAGANCIAS) -->
+    <main class="container editorial-grid">
+
+        <!-- Bloque 3 -->
+        <div class="collection-item">
+            <div class="img-container">
+                <img src="https://cdn.platform.next/common/items/default/default/itemimages/3_4Ratio/product/lge/P73689s.jpg" class="collection-img" alt="Victoria's Secret">
+            </div>
+            <h2 class="item-title">Victoria's Secret | The Iconics</h2>
+            <p class="item-desc">Un material misterioso y seductor que se teje en múltiples variaciones. Capas de sutiles aromas frutales y peonías frescas que envuelven los sentidos en pura ligereza.</p>
+            <a href="#" class="link-discover">Descubrir</a>
+        </div>
+
+        <!-- Bloque 4 -->
+        <div class="collection-item">
+            <div class="img-container">
+                <img src="https://puls-img.chanel.com/1688483382665-oneplpherobannermobile1500x1600pxjpg_1600x1500.jpg" class="collection-img" alt="Chanel">
+            </div>
+            <h2 class="item-title">Chanel | Les Classiques</h2>
+            <p class="item-desc">La sofisticación francesa llevada a su máxima expresión. Aromas atemporales, complejos y abstractos que definen el lujo absoluto y el misterio de la costura clásica.</p>
+            <a href="/colecciones/detalle" class="link-discover">Descubrir</a>
+        </div>
+
+        <!-- Bloque 5 -->
+        <div class="collection-item">
+            <div class="img-container">
+                <img src="https://www.sentua.com/media/wysiwyg/Banner_Izquierda_-_4002_Dia_Del_Padre_2026-1380x800_1.jpg" class="collection-img" alt="Dior">
+            </div>
+            <h2 class="item-title">Dior | Collection Privée</h2>
+            <p class="item-desc">Creaciones audaces nacidas de jardines míticos. Notas florales suntuosas y especias nobles se unen para plasmar una estela de sensualidad aristocrática y pasional.</p>
+            <a href="#" class="link-discover">Descubrir</a>
+        </div>
+
+        <!-- Bloque 6 -->
+        <div class="collection-item">
+            <div class="img-container">
+                <img src="https://assets.boots.com/content/dam/boots/brands/brand---c/carolina-herrera/carolina-herrera_bt/2026_carolina-herrera_bt/carolina-herrera_bt_2026-02/2026-02_carolina-herrera_brand-treatment_33-teaser_discover-iconic-ranges_good-girl.dam.ts%3D1772014137210.jpg" class="collection-img" alt="Carolina Herrera">
+            </div>
+            <h2 class="item-title">Carolina Herrera | NY Elegance</h2>
+            <p class="item-desc">El espíritu vibrante y cosmopolita de la alta sociedad neoyorquina. Fragancias sofisticadas, duales y ultra seductoras, contenidas en frascos icónicos.</p>
+            <a href="#" class="link-discover">Descubrir</a>
+        </div>
+
+        <!-- Bloque 7 -->
+        <div class="collection-item">
+            <div class="img-container">
+                <img src="https://www.my-origines.com/dw/image/v2/BJRD_PRD/on/demandware.static/-/Sites-size-master/default/dw3cb9906d/images/53313290_S2.jpg?sw=1500&sh=1500&sm=fit" class="collection-img" alt="Lancôme">
+            </div>
+            <h2 class="item-title">Lancôme | La Vie en Rose</h2>
+            <p class="item-desc">Una declaración poética a la felicidad y la libertad femenina. Con acordes dulces de iris y vainilla gourmand, ideados para iluminar con optimismo y gracia cada andar.</p>
+            <a href="#" class="link-discover">Descubrir</a>
+        </div>
+
+        <!-- Bloque 8 -->
+        <div class="collection-item">
+            <div class="img-container">
+                <img src="https://perfumaste.com/wp-content/uploads/2026/02/Perfume-Phantom-In-Red-Intense-De-Paco-Rabanne-Para-Hombre-100-ml-2.jpg" class="collection-img" alt="Paco Rabanne">
+            </div>
+            <h2 class="item-title">Paco Rabanne | L'Audace</h2>
+            <p class="item-desc">Aromas metálicos, intensos y magnéticos cargados de fantasía y opulencia. Perfumes provocativos para quienes se atreven a destacar y romper con las reglas comunes.</p>
+            <a href="#" class="link-discover">Descubrir</a>
+        </div>
+
+        <!-- Bloque 9 -->
+        <div class="collection-item">
+            <div class="img-container">
+                <img src="https://media.zid.store/0cd60bb9-2c75-403f-b4b2-53e643da1ba9/07590b74-8591-4912-9a53-2d6ab8909a41.png" class="collection-img" alt="Calvin Klein">
+            </div>
+            <h2 class="item-title">Calvin Klein | Minimalist</h2>
+            <p class="item-desc">La vanguardia de la simplicidad y los aromas compartidos. Notas limpias, cítricas y urbanas que capturan la libertad sin etiquetas y el frescor natural de la juventud.</p>
+            <a href="#" class="link-discover">Descubrir</a>
+        </div>
+
+        <!-- Bloque 10 -->
+        <div class="collection-item">
+            <div class="img-container">
+                <img src="https://http2.mlstatic.com/D_NQ_NP_738663-MPE110568512603_042026-O.webp" class="collection-img" alt="Cyzone">
+            </div>
+            <h2 class="item-title">Cyzone | Youth Energy</h2>
+            <p class="item-desc">Destellos llenos de vitalidad, dulzura y autenticidad. Esencias divertidas y frutales perfectas para expresar un style propio y fresco con una energía desbordante.</p>
+            <a href="#" class="link-discover">Descubrir</a>
+        </div>
+
+        <!-- Bloque 11 -->
+        <div class="collection-item">
+            <div class="img-container">
+                <img src="https://labelleperfumes.com/cdn/shop/files/GUCCI-FEMME-A22_800x.webp?v=1759778326" class="collection-img" alt="Gucci">
+            </div>
+            <h2 class="item-title">Gucci | L'Orto Alchemico</h2>
+            <p class="item-desc">Un viaje ecléctico y surrealista a través de jardines botánicos e insumos antiguos. Fragancias ricas y excéntricas creadas para los apasionados del arte retro y moderno.</p>
+            <a href="#" class="link-discover">Descubrir</a>
+        </div>
+
+        <!-- Bloque 12 -->
+        <div class="collection-item">
+            <div class="img-container">
+                <img src="https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&q=80&w=800" class="collection-img" alt="Yves Saint Laurent">
+            </div>
+            <h2 class="item-title">Yves Saint Laurent | Libre Esprit</h2>
+            <p class="item-desc">El balance definitivo entre la sensualidad ardiente y la elegancia andrógina. Notas de lavanda de Francia combinadas con el azahar de Marruecos bajo una tensión magnética.</p>
+            <a href="#" class="link-discover">Descubrir</a>
+        </div>
+
+        <!-- Bloque 13 -->
+        <div class="collection-item">
+            <div class="img-container">
+                <img src="https://www.versace.com/on/demandware.static/-/Library-Sites-ver-library/default/dwe873c6af/images/quickFilter/FRAGRANCES_QF_EDITORIAL_01.jpg" class="collection-img" alt="Versace">
+            </div>
+            <h2 class="item-title">Versace | Mythos & Barocco</h2>
+            <p class="item-desc">La opulencia mediterránea llevada al extremo del glamour. Notas frescas, acuáticas y especiadas que visten la piel con el magnetismo inconfundible y sensual de la medusa.</p>
+            <a href="#" class="link-discover">Descubrir</a>
+        </div>
+
+        <!-- Bloque 14 -->
+        <div class="collection-item">
+            <div class="img-container">
+                <img src="https://kaneen.com/media/catalog/product//M/y/My-Way-Perfume-by-Giorgio-Armani-Parfum-For-Women-50-ml-4_2-9944de84.webp" class="collection-img" alt="Giorgio Armani">
+            </div>
+            <h2 class="item-title">Giorgio Armani | L'Incontri Pura</h2>
+            <p class="item-desc">Una oda a la naturaleza atemporal y a la sastrería perfecta. Acordes minerales, marinos y amaderados sofisticados que definen el refinamiento sobrio y eterno.</p>
+            <a href="#" class="link-discover">Descubrir</a>
+        </div>
+
+        <!-- Bloque 15 -->
+        <div class="collection-item">
+            <div class="img-container">
+                <img src="https://ounass-ae.atgcdn.ae/contentful/b3xlytuyfm3e/4HYgeIOQyEJQXKrV5sOKLv/004773f4551f6ea2d3da5b6aa94b7249/Ounass_MB_TFB_750x430_-_shibu_TS.jpg?q=70" class="collection-img" alt="Tom Ford">
+            </div>
+            <h2 class="item-title">Tom Ford | Private Blend</h2>
+            <p class="item-desc">Una declaración de intenciones audaz, oscura y lujosa. Notas densas de tabaco, vainilla artesanal y maderas orientales pesadas hechas para los círculos más exclusivos.</p>
+            <a href="#" class="link-discover">Descubrir</a>
+        </div>
+
+        <!-- Bloque 16 -->
+        <div class="collection-item">
+            <div class="img-container">
+                <img src="https://static.sweetcare.com/img/prd/488/v-638639887845193840/givenchy-021984gv-2.webp" class="collection-img" alt="Givenchy">
+            </div>
+            <h2 class="item-title">Givenchy | L'Interdit Secret</h2>
+            <p class="item-desc">Un tributo a la audacia y al estremecimiento de lo prohibido. Notas floral-blancas cruzadas por acordes oscuros de vetiver y pachulí que juegan al contraste definitivo.</p>
+            <a href="#" class="link-discover">Descubrir</a>
+        </div>
+
+    </main>
+
+    <!-- PIE DE PÁGINA (FOOTER) - Información de contacto y enlaces -->
+    <footer class="footer pt-5 pb-3 mt-5">
+        <div class="container">
+            <div class="row">
+
+                <!-- Sección de marca (izquierda) -->
+                <div class="col-md-4 mb-4 text-center"> 
+                    <h2>VELVET ESSENCE</h2>
+                    <p>Fragancias exclusivas que reflejan tu esencia y personalidad.</p>
+                </div>
+
+                <!-- Sección de navegación (enlaces del menú) -->
+                <div class="col-md-2 mb-4 text-center">
+                    <h5>Menu</h5>
+                    <a href="#">Inicio</a><br>
+                    <a href="#">Perfumes</a><br>
+                    <a href="#">Colecciones</a><br>
+                    <a href="#">Nosotros</a>
+                </div>
+
+                <!-- Sección de contacto (teléfono y email) -->
+                <div class="col-md-3 mb-4 text-center">
+                    <h5>Contacto</h5>
+                    <p>Lima, Perú</p>
+                    <p>+51 999 999 999</p>
+                    <p>contacto@velvet.com</p>
+                </div>
+
+                <!-- Sección de suscripción (formulario de email con validación) -->
+                <div class="col-md-3 mb-4 text-center">
+                    <h5>Suscríbete</h5>
+                    <p>Recibe novedades y ofertas exclusivas.</p>
+                    <!-- Formulario de suscripción con validación JavaScript -->
+                    <form id="subscribeForm">
+                        <!-- Campo de email obligatorio -->
+                        <input type="email" class="form-control mb-2 rounded-0" id="emailSuscripcion" placeholder="Tu email" required>
+                        <!-- Alerta de error (oculta por defecto) -->
+                        <div id="errorSubscribe" class="alert alert-danger alert-sm d-none mb-2" role="alert" style="font-size: 12px;">
+                            Por favor ingresa un email válido
+                        </div>
+                        <!-- Botón de envío con evento submit -->
+                        <button type="submit" class="btn btn-dark rounded-0 w-100">Enviar</button>
+                    </form>
+                </div>
+
+            </div>
+
+            <!-- Copyright y versión -->
+            <div class="footer-bottom text-center">
+                <p class="mb-0">
+                    © 2026 Velvet Essence — v1.5
+                </p>
+            </div>
+
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/script.js"></script>
+</body>
+</html>

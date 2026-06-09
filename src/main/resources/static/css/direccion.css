@@ -1,0 +1,17 @@
+        body {
+            padding-top: 90px;
+            background: #f8f9fa;
+        }
+        .address-card {
+            position: relative;
+            overflow: hidden;
+        }
+        .address-card .btn-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            z-index: 1;
+        }
+        .address-card .card-body {
+            padding-right: 4rem;
+        }

@@ -32,48 +32,6 @@ document.querySelectorAll('.accordion-header-custom').forEach(header => {
 });
 
 
-// ========== CARRITO FUNCIONAL ==========
-/*
-   Aquí se almacena toda la lógica
-   principal del carrito de compras.
-*/
-
-let cart = [];
-
-
-// ===== VARIABLES DEL DOM =====
-/*
-   Variables que capturan elementos HTML
-   para manipularlos desde JavaScript.
-*/
-
-const cartBtn = document.getElementById('cartToggle');
-const cartSidebar = document.getElementById('cartSidebar');
-const closeCartBtn = document.getElementById('closeCart');
-const cartItemsContainer = document.getElementById('cartItems');
-const cartCountSpan = document.getElementById('cartCount');
-const cartTotalPriceSpan = document.getElementById('cartTotalPrice');
-
-
-// ===== ABRIR Y CERRAR CARRITO =====
-/*
-   Permite mostrar y ocultar
-   el sidebar del carrito.
-*/
-
-cartBtn.addEventListener('click', () => {
-
-    // Alterna apertura/cierre
-    cartSidebar.classList.toggle('open');
-});
-
-closeCartBtn.addEventListener('click', () => {
-
-    // Cierra el carrito
-    cartSidebar.classList.remove('open');
-});
-
-
 // ===== AGREGAR PRODUCTOS AL CARRITO =====
 /*
    Obtiene la información del producto:
@@ -88,6 +46,10 @@ closeCartBtn.addEventListener('click', () => {
 document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
 
     btn.addEventListener('click', () => {
+
+        //Obtener imagen del producto
+
+        const image= btn.getAttribute('data-image');
 
         // Obtener nombre del producto
         const name = btn.getAttribute('data-name');
@@ -119,7 +81,7 @@ document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
         } else {
 
             // Si no existe, agregar producto
-            cart.push({ name, price, sku, quantity });
+            cart.push({ image,name, price, sku, quantity });
         }
         
         // Actualizar interfaz del carrito
@@ -172,33 +134,22 @@ function updateCartUI() {
     cart.forEach((item, idx) => {
 
         // Calcular subtotal
-        const subtotal = item.price * item.quantity;
+        const subtotal = item.price * item.quantity ;
 
         total += subtotal;
 
         // Crear HTML dinámico
         html += `
-            <div class="cart-item">
-                <div>
-
-                    <strong>${item.name}</strong><br>
-
-                    <small class="text-muted">
-                        Cant: ${item.quantity} x S/ ${item.price.toFixed(2)}
-                    </small>
-
-                </div>
-
-                <div>
-
-                    <strong>S/ ${subtotal.toFixed(2)}</strong>
-
-                    <button class="remove-item ms-2" data-index="${idx}">
-                        <i class="bi bi-trash3"></i>
-                    </button>
-
-                </div>
-            </div>
+<div class="cart-item d-flex align-items-center mb-3">
+    <img src="${item.image}" alt="${item.name}" width="50" height="50" class="img-fluid me-2 rounded" style="object-fit: cover;">
+    <div>
+        <strong>${item.name}</strong><br>
+        <small class="text-muted">
+            Cant: ${item.quantity} x S/ ${item.price.toFixed(2)}
+        </small>
+    </div>
+    <!-- El resto de tu contenedor de precio y botón eliminar sigue igual... -->
+</div>
         `;
     });
    // Insertar productos generados dinámicamente
@@ -207,6 +158,9 @@ cartItemsContainer.innerHTML = html;
 // Mostrar precio total del carrito
 cartTotalPriceSpan.innerText = `S/ ${total.toFixed(2)}`;
 
+if (typeof saveCart === 'function') {
+    saveCart();
+}
 
 
 // ===== ELIMINAR PRODUCTOS =====
@@ -290,6 +244,10 @@ document.addEventListener('click', (e) => {
         cartSidebar.classList.remove('open');
     }
 });
+
+if (typeof loadCart === 'function') {
+    loadCart();
+}
 
 
 // ===== EFECTO STICKY CONTROLADO =====

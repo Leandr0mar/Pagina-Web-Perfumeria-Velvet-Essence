@@ -6,7 +6,7 @@
 
 /* ===== FUENTE PRINCIPAL: Montserrat ===== */
 body {
-    background: #f9f6f0;
+    background: #ffffff;
     font-family: 'Montserrat', sans-serif;
     color: #2c2b28;
 }
@@ -840,8 +840,8 @@ body {
 }
 
 .cart-item {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns:5;
     align-items: center;
     margin-bottom: 16px;
     padding-bottom: 12px;

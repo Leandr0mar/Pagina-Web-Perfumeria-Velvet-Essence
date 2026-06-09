@@ -1,0 +1,54 @@
+-- =========================================================================
+-- 1. INSERCIÓN EN LA TABLA PRINCIPAL (PERFUMES)
+-- =========================================================================
+INSERT INTO perfumes (id, nombre, marca, categoria, presentacion, descripcion, precio, stock, familia_olfativa, modo_de_uso, volumen, pais_origen, imagen, genero) VALUES
+(1, 'Black Gravitation', 'Miniso', 'Eau de Parfum', 'Frasco de vidrio minimalista con atomizador negro', 'Una fragancia misteriosa que desafía la gravedad, ideal para envolverte en la calidez profunda de la noche.', 79.99, 15, 'Aromática Verde', 'Vaporizar en los puntos de pulso como muñecas, cuello y detrás de las orejas a una distancia de 15 cm.', '100 ml', 'China', 'https://res.cloudinary.com/dtur08q7k/image/upload/v1780448403/Loci-n-para-hombre-black-gravitation-100ml-Miniso-1-26444_pqhuxg.webp', 'Hombre'),
+(2, 'Homem Clásico', 'Natura', 'Eau de Toilette', 'Frasco clásico transparente con tapa magnética texturizada', 'El equilibrio perfecto entre el frescor de los cítricos y la profunda elegancia de las maderas nobles.', 114.99, 0, 'Cítrica Amaderada', 'Aplicar directamente sobre la piel en áreas con alta pulsación sanguínea para maximizar la proyección.', '100 ml', 'Brasil', 'https://res.cloudinary.com/dtur08q7k/image/upload/v1780448839/Perfume_Homem_1_hixnuv.webp', 'Hombre'),
+(3, 'Essencial Clásico', 'Natura', 'Eau de Parfum', 'Elegante frasco de vidrio facetado asimétrico premium', 'Un manifiesto de sofisticación que combina notas verdes vibrantes con la imponente potencia de maderas profundas.', 149.99, 10, 'Aromática Fougère', 'Rociar en el torso, el cuello y las muñecas. Ideal para ocasiones formales, de noche o climas templados.', '100 ml', 'Brasil', 'https://res.cloudinary.com/dtur08q7k/image/upload/v1780448879/Essencial-Clasico-Masculino_vmenop.webp', 'Hombre'),
+(4, 'Temptation', 'Yanbal', 'Eau de Parfum', 'Frasco estilizado y ergonómico que simula la silueta y firmeza masculina', 'Un aroma herbal maderoso altamente seductor de intensidad muy fuerte diseñado para el hombre que busca impresionar.', 189.99, 18, 'Herbal Maderosa', 'Aplicar generosamente en las muñecas y en la base del cuello. Evitar frotar las muñecas tras la aplicación.', '100 ml', 'Perú', 'https://res.cloudinary.com/dtur08q7k/image/upload/v1780448906/Temptation-Yanbal_lxn2ad.webp', 'Hombre'),
+(5, 'Dolce', 'Dolce & Gabbana', 'Eau de Parfum', 'Frasco de vidrio grueso y redondeado con tapón en forma de rosa blanca y lazo de grosgrain negro', 'Una fragancia sumamente delicada que captura la esencia de los campos de Sicilia con flores blancas recién cortadas.', 249.99, 8, 'Floral Blanca', 'Rociar sobre los puntos de pulso, especialmente detrás de las orejas y en las muñecas, a una distancia de 20 cm.', '75 ml', 'Italia', 'https://res.cloudinary.com/dtur08q7k/image/upload/v1780448911/Dolce_Gabbana_nkm2k2.webp', 'Mujer'),
+(6, 'Imágenes', 'Ésika', 'Parfum', 'Frasco asimétrico facetado inspirado en la silueta de un diamante', 'Un aroma icónico de absoluta elegancia donde la sofisticación del ylang-ylang se funde con la fuerza del jazmín.', 79.99, 30, 'Floral Atalcada', 'Aplicar directamente en el cuello, las muñecas y los hombros después del baño para prolongar la fijación.', '50 ml', 'Perú', 'https://res.cloudinary.com/dtur08q7k/image/upload/v1780448913/Imagenes_Esika_nfj7mj.webp', 'Mujer'),
+(7, 'Miss L\'Bel', 'L\'Bel', 'Parfum', 'Frasco estilizado y minimalista de vidrio transparente con un elegante lazo rosa en el cuello', 'Una fragancia icónica inspirada en la alta perfumería francesa, ideal para la mujer que resalta por su carisma.', 189.99, 12, 'Floral Frutal', 'Vaporizar en el torso y las muñecas. Se recomienda no frotar la piel para no romper la estructura de las rosas.', '50 ml', 'Francia', 'https://res.cloudinary.com/dtur08q7k/image/upload/v1780448914/Miss_L_Bel_z5ndk5.webp', 'Mujer'),
+(8, 'Pasión', 'Yanbal', 'Parfum', 'Frasco curvo y sinuoso de color morado translúcido de alta costura', 'Una invitation olfativa a celebrar la intensidad del romance mediante la sensualidad exótica de las peonías.', 129.99, 20, 'Ámbar Floral', 'Aplicar generosamente en las zonas de alta pulsación como el escote, el cuello y la cara interna de los codos.', '50 ml', 'Colombia', 'https://res.cloudinary.com/dtur08q7k/image/upload/v1780448916/Pasion_Yanbal_lxctmv.webp', 'Mujer');
+
+
+-- =========================================================================
+-- 2. INSERCIÓN DE NOTAS DE SALIDA (TABLA AUXILIAR)
+-- =========================================================================
+INSERT INTO perfume_notas_salida (perfume_id, nota) VALUES
+(1, 'Pomelo'), (1, 'Notas marinas'),
+(2, 'Limón siciliano'), (2, 'Mandarina'), (2, 'Jengibre'), (2, 'Bergamota'),
+(3, 'Bergamota'), (3, 'Nuez moscada'), (3, 'Albahaca'), (3, 'Gálbano'),
+(4, 'Hojas de menta'), (4, 'Néctar de mandarina'),
+(5, 'Flor de papaya'), (5, 'Neroli'),
+(6, 'Durazno'), (6, 'Violeta'), (6, 'Notas verdes'),
+(7, 'Frambuesa negra'), (7, 'Notas cítricas chispeantes'),
+(8, 'Violeta'), (8, 'Notas de frutas silvestres');
+
+
+-- =========================================================================
+-- 3. INSERCIÓN DE NOTAS DE CORAZÓN (TABLA AUXILIAR)
+-- =========================================================================
+INSERT INTO perfume_notas_corazon (perfume_id, nota) VALUES
+(1, 'Hoja de laurel'), (1, 'Jazmín'),
+(2, 'Salvia'), (2, 'Lavanda'), (2, 'Pimienta negra'), (2, 'Cardamomo'),
+(3, 'Romero'), (3, 'Pachulí'), (3, 'Salvia'), (3, 'Geranio'),
+(4, 'Flor de naranja'), (4, 'Notas herbales frescas'),
+(5, 'Nenúfar (lirio de agua)'), (5, 'Narciso'), (5, 'Amarilis'),
+(6, 'Ylang-ylang'), (6, 'Jazmín'), (6, 'Tuberosa'), (6, 'Rosa'),
+(7, 'Bouquet de rosas'), (7, 'Flor de azahar'),
+(8, 'Peonía blanca'), (8, 'Notas florales de primavera');
+
+
+-- =========================================================================
+-- 4. INSERCIÓN DE NOTAS DE FONDO (TABLA AUXILIAR)
+-- =========================================================================
+INSERT INTO perfume_notas_fondo (perfume_id, nota) VALUES
+(1, 'Madera de guayaco'), (1, 'Musgo de roble'), (1, 'Pachulí'), (1, 'Ámbar gris'),
+(2, 'Cedro'), (2, 'Sándalo'), (2, 'Ámbar'), (2, 'Almizcle'),
+(3, 'Cedro de Virginia'), (3, 'Sándalo'), (3, 'Mirra'), (3, 'Musgo de roble'),
+(4, 'Madera de sándalo'), (4, 'Cedro masculino'),
+(5, 'Almizcle'), (5, 'Cachemira'), (5, 'Sándalo'),
+(6, 'Sándalo'), (6, 'Cedro'), (6, 'Musk'), (6, 'Ámbar'),
+(7, 'Madera de sándalo'), (7, 'Notas almizcladas suaves'),
+(8, 'Semillas de tonka'), (8, 'Ámbar cálido');
