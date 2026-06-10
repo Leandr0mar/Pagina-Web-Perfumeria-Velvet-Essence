@@ -1,4 +1,4 @@
-﻿# ✨ Velvet Essence | Perfumería de Autor (Version 1.5)
+﻿# ✨ Velvet Essence | Perfumería de Autor (Version 1.8)
 
 > **Sitio Web + Backend Spring Boot / Thymeleaf**
 
@@ -23,7 +23,103 @@ La versión actual incluye:
 
 ---
 
-## 🚀 Cómo Ejecutar el Proyecto
+## �️ Configuración de Spring Data JPA y MySQL
+
+Esta aplicación usa Spring Data JPA para mapear entidades Java a tablas MySQL y gestionar persistencia sin SQL manual.
+
+La configuración principal está en `src/main/resources/application.properties`:
+
+```properties
+spring.datasource.url=jdbc:mysql://localhost:3306/velvet_essence
+spring.datasource.username=root
+spring.datasource.password=74418228
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.format_sql=true
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQLDialect
+```
+
+- `spring.jpa.hibernate.ddl-auto=update` mantiene sincronizada la estructura de la base de datos con las entidades Java sin borrar datos existentes.
+- La conexión se realiza exitosamente con MySQL mediante el driver `com.mysql.cj.jdbc.Driver`.
+
+## 🧩 Uso correcto de anotaciones JPA
+
+Las entidades Java se definen con anotaciones JPA para mapearlas a tablas MySQL:
+
+- `@Entity` marca la clase como entidad persistente.
+- `@Table(name = "nombre_tabla")` define el nombre de la tabla en la base de datos.
+- `@Id` identifica la clave primaria.
+- `@GeneratedValue(strategy = GenerationType.IDENTITY)` genera automáticamente el valor de la clave primaria.
+
+Ejemplo básico:
+
+```java
+@Entity
+@Table(name = "productos")
+public class Producto {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String nombre;
+    private BigDecimal precio;
+    // getters y setters
+}
+```
+
+## 📚 Repositorios JpaRepository
+
+Se utilizan interfaces que extienden `JpaRepository` para manejar la persistencia y evitar SQL manual:
+
+```java
+public interface ProductoRepository extends JpaRepository<Producto, Long> {
+}
+```
+
+Con esto se obtiene automáticamente soporte para operaciones CRUD, paginación, ordenación y consultas simples.
+
+## ✅ Operaciones CRUD en un entorno web/RESTful
+
+El proyecto soporta la implementación de Crear, Leer, Actualizar y Eliminar (`CRUD`) a través de controladores web o RESTful.
+
+- Crear: guardar nuevas entidades usando `save()`.
+- Leer: obtener entidades por ID o listas completas con `findById()` y `findAll()`.
+- Actualizar: modificar una entidad existente y persistir los cambios con `save()`.
+- Eliminar: borrar entidades con `deleteById()`.
+
+Esto asegura integridad de datos en MySQL siempre que se mantengan las validaciones y relaciones entre entidades.
+
+## 🔐 Validación y relaciones entre tablas
+
+Se recomienda aplicar `Spring Validator` para restricciones de datos y mantener la coherencia del modelo de negocio.
+
+- `@Valid` en los controladores para validar objetos entrantes.
+- `@NotNull`, `@Size`, `@Email` y otras anotaciones de validación en los campos.
+
+También se implementan relaciones JPA según las necesidades del dominio:
+
+- `@ManyToOne` para relaciones de muchos a uno.
+- `@OneToMany` para relaciones de uno a muchos.
+- `@JoinColumn` para especificar la columna de unión.
+
+Ejemplo de relación:
+
+```java
+@Entity
+public class Pedido {
+    @ManyToOne
+    @JoinColumn(name = "cliente_id")
+    private Cliente cliente;
+
+    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
+    private List<PedidoDetalle> detalles;
+}
+```
+
+---
+
+## �🚀 Cómo Ejecutar el Proyecto
 
 ### ⚡ Opción 1: Abrir Directamente en Navegador
 
