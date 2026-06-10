@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finalizar Compra - Velvet Essence</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap"
+        rel="stylesheet">
+
+    <!-- CSS Personalizado -->
+    <link rel="stylesheet" href="/css/compraFinal.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="header">
+            <div class="logo">
+                <span>VELVET ESSENCE</span>
+            </div>
+            <div class="header-right">
+                <i class="bi bi-shield-check"></i>
+                <span>Compra segura</span>
+            </div>
+        </div>
+
+        <div class="checkout-wrapper">
+            <div class="left-column">
+                <!-- Dirección de entrega -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Dirección de entrega</h2>
+                        <button class="btn-link" id="editAddressBtn">
+                            Añadir nueva dirección
+                        </button>
+                    </div>
+                    <div id="addressInfo" class="address-info">
+                        <!-- Aquí se renderiza la dirección -->
+                    </div>
+                </div>
+
+                <!-- Métodos de pago -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Métodos de pago</h2>
+                        <div class="card-header-buttons">
+                            <button class="btn-link" id="addPaymentBtn">
+                                <i class="bi bi-plus-circle"></i> Agregar tarjeta
+                            </button>
+                            <button class="btn-link" id="editPaymentBtn">Gestionar</button>
+                        </div>
+                    </div>
+                    <div id="paymentMethodsList">
+                        <div class="text-muted small">Cargando métodos de pago...</div>
+                    </div>
+                    <div id="selectedPaymentDisplay" class="selected-payment mt-2"></div>
+                </div>
+
+                <!-- Productos del carrito -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Velvet Essence Store</h2>
+                    </div>
+                    <div id="cartProductsContainer">
+                        <div class="text-center py-4 text-muted">
+                            <i class="bi bi-cart"></i>
+                            <p class="mt-2">No hay productos en el carrito</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="right-column">
+                <div class="summary-card">
+                    <h2>Resumen</h2>
+                    <div class="summary-row">
+                        <span>Subtotal</span>
+                        <span id="subtotal">S/0.00</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Descuento</span>
+                        <span class="saved">-S/0.00</span>
+                    </div>
+                    <div class="summary-row total">
+                        <span>Total</span>
+                        <span id="total">S/0.00</span>
+                    </div>
+                    <button class="btn-pagar" id="payNowBtn">
+                        <i class="bi bi-lock-fill"></i> Pagar ahora
+                    </button>
+                    <p class="terms">Al hacer click en "Realizar pedido" confirmo haber leído y aceptado los términos y condiciones.</p>
+                </div>
+
+                <div class="benefits-card">
+                    <div class="benefit-item"><i class="bi bi-truck"></i> Entregar rápida</div>
+                    <div class="benefit-item"><i class="bi bi-arrow-repeat"></i> Reembolso por pérdida del paquete</div>
+                    <div class="benefit-item"><i class="bi bi-shield-check"></i> Reembolso por artículos dañados</div>
+                    <div class="benefit-item"><i class="bi bi-clock-history"></i> Reembolso si no llega en 60 días</div>
+                </div>
+
+                <div class="security-card">
+                    <i class="bi bi-shield-lock-fill"></i>
+                    <span>Seguridad & Privacidad</span>
+                    <span class="text-muted">Pagos seguros - Datos personales seguros</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: Agregar tarjeta -->
+    <div class="modal fade" id="addCardModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><i class="bi bi-credit-card"></i> Agregar nueva tarjeta</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Tipo de tarjeta</label>
+                        <div class="card-type-selector">
+                            <div class="card-type-option active" data-type="VISA"><i class="bi bi-credit-card-fill"></i> VISA</div>
+                            <div class="card-type-option" data-type="Mastercard"><i class="bi bi-credit-card-fill"></i> Mastercard</div>
+                            <div class="card-type-option" data-type="American Express"><i class="bi bi-credit-card-2-front-fill"></i> Amex</div>
+                        </div>
+                        <input type="hidden" id="newCardType" value="VISA">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Número de tarjeta</label>
+                        <input type="text" id="newCardNumber" class="form-control" placeholder="1234 5678 9012 3456" maxlength="19">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Nombre del titular</label>
+                        <input type="text" id="newCardName" class="form-control" placeholder="Como aparece en la tarjeta">
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <label class="form-label">Fecha vencimiento</label>
+                            <input type="text" id="newCardExpiry" class="form-control" placeholder="MM/AA" maxlength="5">
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label">CVV</label>
+                            <input type="password" id="newCardCVV" class="form-control" placeholder="123" maxlength="3">
+                        </div>
+                    </div>
+                    <div class="save-card-toggle mt-3">
+                        <label class="toggle-label"><i class="bi bi-bookmark-plus"></i> <span>Guardar tarjeta para futuras compras</span></label>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="saveCardCheckbox" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="confirmAddCardBtn">Agregar tarjeta</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: Gestionar métodos de pago -->
+    <div class="modal fade" id="managePaymentModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Gestionar métodos de pago</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" id="managePaymentsList"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== MODAL DE NUEVA DIRECCIÓN ===== -->
+    <div class="modal fade" id="modalDireccion" tabindex="-1" aria-labelledby="modalDireccionLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content rounded-0 border-0">
+                <div class="modal-header bg-dark text-white rounded-0 border-0">
+                    <h5 class="modal-title monserat" id="modalDireccionLabel">Agregar Dirección</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                
+                <!-- Formulario que respeta los atributos de tu modelo Direccion -->
+                <form id="formNuevaDireccion">
+                    <div class="modal-body px-4 py-4">
+                        <div class="mb-3">
+                            <label for="dirTitulo" class="form-label small fw-bold">Título (Ej. Casa, Trabajo)</label>
+                            <input type="text" class="form-control rounded-0" id="dirTitulo" name="titulo" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="dirCalle" class="form-label small fw-bold">Calle / Avenida / Nro</label>
+                            <input type="text" class="form-control rounded-0" id="dirCalle" name="calle" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="dirDistrito" class="form-label small fw-bold">Distrito / Ciudad</label>
+                            <input type="text" class="form-control rounded-0" id="dirDistrito" name="distrito" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="dirReferencia" class="form-label small fw-bold">Referencia (Opcional)</label>
+                            <input type="text" class="form-control rounded-0" id="dirReferencia" name="referencia" placeholder="Cerca a...">
+                        </div>
+                    </div>
+                    <div class="modal-footer border-0 bg-light">
+                        <button type="button" class="btn btn-outline-secondary rounded-0" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-dark rounded-0">Guardar Dirección</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/compraFinal.js"></script>
+</body>
+
+</html>

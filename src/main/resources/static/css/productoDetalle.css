@@ -1058,3 +1058,15 @@ body {
     }
 }
 
+/* ===== OPTIMIZACIÓN BOTÓN ELIMINAR ===== */
+.remove-item {
+    background: none;
+    border: none;
+    padding: 4px;
+    transition: transform 0.2s ease;
+}
+
+.remove-item:hover {
+    transform: scale(1.15);
+}
+

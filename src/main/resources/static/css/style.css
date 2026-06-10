@@ -392,3 +392,60 @@ footer.footer {
     display: block;
     margin: 0 auto;
 }
+
+/* ===== COMPRA FINAL: ESTILOS DE DIRECCIONES ===== */
+
+/* Tarjeta minimalista con los bordes rectos y colores del sitio */
+.card-direccion-custom {
+    background: #ffffff;
+    border: 1px solid #ece3da;
+    border-radius: 0px !important;
+    transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1);
+}
+
+.card-direccion-custom:hover {
+    border-color: #b38b60;
+    box-shadow: 0 12px 25px -10px rgba(179, 139, 96, 0.15);
+}
+
+/* Customización del diseño de los inputs del formulario del modal */
+.form-control-custom {
+    border: 1px solid #e2d9d0;
+    padding: 12px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    color: #2c2b28;
+}
+
+.form-control-custom:focus {
+    border-color: #b38b60;
+    box-shadow: none;
+    background-color: #fcf9f5;
+}
+
+/* Modificadores estéticos para los selectores de tipo Radio */
+.custom-radio-wrapper .custom-radio-input {
+    border-color: #b38b60;
+    cursor: pointer;
+}
+
+.custom-radio-wrapper .custom-radio-input:checked {
+    background-color: #2b2a27;
+    border-color: #2b2a27;
+    box-shadow: 0 0 0 3px rgba(43, 42, 39, 0.12);
+}
+
+/* Botón X de eliminación suave */
+.btn-close-custom.btn-eliminar-dir {
+    background: none;
+    border: none;
+    color: #b0a088;
+    padding: 0;
+    cursor: pointer;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.btn-close-custom.btn-eliminar-dir:hover {
+    color: #c0392b;
+    transform: scale(1.1);
+}
