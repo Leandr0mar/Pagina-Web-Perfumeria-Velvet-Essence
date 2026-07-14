@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuestra Colección | Velvet Essence</title>
+
+     <!-- Bootstrap CSS - Framework para estilos responsivos -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- CSS Personalizado -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" th:href="@{/css/productos.css}">
+        <!-- CSS personalizado - Estilos propios del sitio -->
+
+</head>
+
+<body>
+
+    <!-- NAVEGACIÓN DE CABECERA - Barra superior con logo y menú -->
+    <nav class="navbar navbar-expand-lg fixed-top custom-navbar">
+        <div class="container-fluid px-4">
+            <!-- Logo y nombre de la marca (parte izquierda del navbar) -->
+            <a class="navbar-brand logo d-flex align-items-center" href="/inicio">
+                 <img src="assets/logo/logo-dorado.png" alt="Logo Velvet Essence" width="40" height="40" class="d-inline-block align-text-top me-2">
+                 Velvet Essence
+            </a>
+
+
+            <!-- Contenedor que agrupa Iconos + Hamburguesa solo en celular -->
+            <div class="d-flex align-items-center justify-content-between d-lg-none ms-auto gap-3">
+                
+
+
+                <!-- Botón hamburguesa -->
+                <button class="navbar-toggler border-0 p-0" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+            </div>
+
+            <!-- Menú colapsable con enlaces de navegación e iconos -->
+            <div class="collapse navbar-collapse justify-content-between px-4" id="menu">
+                <!-- Enlaces del menú (Inicio, Perfumes, etc.) -->
+                <ul class="navbar-nav mx-auto text-center">
+                    <li class="nav-item"><a class="nav-link active" href="/inicio">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/productos">Perfumes</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/colecciones">Colecciones</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/nosotros">Nosotros</a></li>
+                    <ul id="mobileAuthList" class="navbar-nav mx-auto text-center d-lg-none mt-3">
+                        <li class="nav-item"><a class="nav-link" href="/iniciar-sesion">Iniciar sesión</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/registrarse">Registrarse</a></li>
+                    </ul>
+                </ul>
+                    <!-- Botones de sesión -->
+                <div id="desktopAuthSection" class="navbar-auth-buttons d-none d-lg-flex align-items-center gap-4">
+                    
+                    <!-- SOLUCIÓN: Agregada la clase 'd-flex' aquí para que funcione el gap-4 -->
+                    <div class="search-box d-flex align-items-center justify-content-center gap-4">
+                        <i class="bi bi-search fs-5 icon-hover"></i>
+                        <i class="bi bi-bag fs-5 icon-hover"></i>
+                    </div>
+                    
+                    <!-- Botones de acceso (parte derecha) -->
+                    <div class="d-flex align-items-center justify-content-center gap-3 py-3 py-lg-0 mfk-icons">
+                        <a href="/iniciar-sesion" class="btn btn-auth btn-auth-login">Iniciar sesión</a>
+                        <a href="/registrarse" class="btn btn-auth btn-auth-register">Registrarse</a>
+                    </div>
+                </div> 
+            </div>
+        </div>
+    </nav>
+
+  
+<!-- ====== HERO ====== -->
+    <section class=" mt-5 pt-5">
+        <div class="container">
+            <div class=" text-center mt-4">
+                <div class="hero-decoration">
+                    <span class="hero-line"></span>
+                    <span class="hero-line"></span>
+                </div>
+                <h1 class="hero-title">Nuestra Colección</h1>
+                <p class="hero-subtitle">Descubre fragancias exclusivas cuidadosamente seleccionadas para cada personalidad.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FILTROS ===== -->
+    <section class="filters-section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 col-md-10">
+                    <div class="search-box">
+                        <i class="bi bi-search search-icon"></i>
+                        <input type="text" id="searchInput" class="search-input"
+                            placeholder="Buscar por nombre o marca...">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row g-3 mt-3">
+                <div class="col-lg-2 col-md-4 col-6">
+                    <label class="filter-label">Marca</label>
+                    <select id="filterMarca" class="filter-select">
+                        <option value="all">Todas</option>
+                        <option value="Dior">Dior</option>
+                        <option value="Chanel">Chanel</option>
+                        <option value="Dolce & Gabbana">Dolce & Gabbana</option>
+                        <option value="Armani">Armani</option>
+                        <option value="Carolina Herrera">Carolina Herrera</option>
+                        <option value="Versace">Versace</option>
+                        <option value="Yves Saint Laurent">Yves Saint Laurent</option>
+                        <option value="Paco Rabanne">Paco Rabanne</option>
+                    </select>
+                </div>
+
+                <div class="col-lg-2 col-md-4 col-6">
+                    <label class="filter-label">Género</label>
+                    <select id="filterGenero" class="filter-select">
+                        <option value="all">Todos</option>
+                        <option value="Hombre">Hombre</option>
+                        <option value="Mujer">Mujer</option>
+                        <option value="Unisex">Unisex</option>
+                    </select>
+                </div>
+
+                <div class="col-lg-2 col-md-4 col-6">
+                    <label class="filter-label">Tipo</label>
+                    <select id="filterTipo" class="filter-select">
+                        <option value="all">Todos</option>
+                        <option value="Eau de Parfum">Eau de Parfum</option>
+                        <option value="Eau de Toilette">Eau de Toilette</option>
+                        <option value="Parfum">Parfum</option>
+                        <option value="Cologne">Cologne</option>
+                    </select>
+                </div>
+
+                <div class="col-lg-2 col-md-4 col-6">
+                    <label class="filter-label">Precio</label>
+                    <select id="filterPrecio" class="filter-select">
+                        <option value="all">Todos</option>
+                        <option value="0-100">Menos de S/.100</option>
+                        <option value="100-200">S/.100 - S/.200</option>
+                        <option value="200-400">S/.200 - S/.400</option>
+                        <option value="400-99999">Más de S/.400</option>
+                    </select>
+                </div>
+
+                <div class="col-lg-2 col-md-4 col-6">
+                    <label class="filter-label">Contenido (ml)</label>
+                    <select id="filterContenido" class="filter-select">
+                        <option value="all">Todos</option>
+                        <option value="30 ml">30 ml</option>
+                        <option value="50 ml">50 ml</option>
+                        <option value="75 ml">75 ml</option>
+                        <option value="100 ml">100 ml</option>
+                        <option value="125 ml">125 ml</option>
+                        <option value="150 ml">150 ml</option>
+                        <option value="200 ml">200 ml</option>
+                    </select>
+                </div>
+
+                <div class="col-lg-2 col-md-4 col-6">
+                    <label class="filter-label">Ordenar</label>
+                    <select id="filterOrden" class="filter-select">
+                        <option value="recientes">Más recientes</option>
+                        <option value="precio-menor">Precio menor</option>
+                        <option value="precio-mayor">Precio mayor</option>
+                        <option value="nombre-az">Nombre A-Z</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== PRODUCTOS ===== -->
+    <section class="products-section">
+        <div class="container">
+            <div class="d-flex justify-content-end mb-3">
+                <span class="products-count" id="productsCount">Mostrando 0 productos</span>
+            </div>
+            <div class="row g-4" id="productsGrid">
+                <!-- Productos generados desde JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- ===== MODAL DE DETALLE DEL PRODUCTO ===== -->
+    <!-- ============================================================ -->
+    <div class="modal-overlay" id="productModal">
+        <div class="modal-container">
+            <button class="modal-close" id="modalClose">
+                <i class="bi bi-x-lg"></i>
+            </button>
+
+            <!-- CONTENIDO DEL MODAL -->
+            <div class="modal-content-wrapper">
+                <div class="modal-product-card">
+                    <div class="row g-4 align-items-start">
+                        <!-- Columna izquierda: Imagen -->
+                        <div class="col-12 col-md-6">
+                            <div class="modal-product-image-wrapper">
+                                <img id="modalProductImage" src="" alt="" class="modal-product-img-main">
+                            </div>
+                        </div>
+
+                        <!-- Columna derecha: Información -->
+                        <div class="col-12 col-md-6">
+                            <div class="modal-product-info-right">
+                                <!-- Marca -->
+                                <div class="modal-brand-tag" id="modalProductBrand">MARCA</div>
+
+                                <!-- Título -->
+                                <h1 class="modal-product-title">
+                                    <span id="modalProductName">Nombre</span>
+                                    <br>
+                                    <span class="modal-volume" id="modalProductContent">90 ml</span>
+                                </h1>
+                                <p class="modal-product-subtitle" id="modalProductType">Eau de Parfum</p>
+
+                                <!-- Descripción -->
+                                <p class="modal-fragrance-description" id="modalProductDescription">
+                                    Descripción del producto
+                                </p>
+
+                                <!-- Disponibilidad -->
+                                <div class="modal-sku-info mb-3" id="modalProductAvailability">
+                                    <i class="bi bi-check-circle-fill text-success me-1"></i>
+                                    <strong>Disponible</strong> · stock: <span id="modalProductStock">18</span>
+                                </div>
+
+                                <!-- Precio -->
+                                <div class="modal-price-wrapper mb-4">
+                                    <span class="modal-current-price" id="modalProductPrice">S/ 189.99</span>
+                                </div>
+
+                                <!-- ===== CANTIDAD Y BOTÓN (ESCRITORIO) ===== -->
+                                <div class="modal-cart-actions" id="modalCartActionsDesktop">
+                                    <div class="modal-quantity-selector">
+                                        <button class="modal-qty-btn minus" id="modalDecrementBtn">−</button>
+                                        <input type="number" id="modalQuantityInput" value="1" min="1" max="10"
+                                            class="modal-qty-input">
+                                        <button class="modal-qty-btn plus" id="modalIncrementBtn">+</button>
+                                    </div>
+                                    <button class="modal-add-to-cart-btn" id="modalAddToCartBtn">
+                                        <i class="bi bi-bag-plus"></i> Añadir al carrito
+                                    </button>
+                                </div>
+
+                                <!-- Características (badges) -->
+                                <div class="modal-badges-features mb-3">
+                                    <span class="modal-badge-feature">
+                                        <i class="bi bi-flower1"></i> Aroma principal: <strong
+                                            id="modalFeatureAroma">Herbal Maderosa</strong>
+                                    </span>
+                                    <span class="modal-badge-feature">
+                                        <i class="bi bi-heart"></i> <span id="modalFeatureCruelty">Cruelty Free</span>
+                                    </span>
+                                    <span class="modal-badge-feature">
+                                        <i class="bi bi-droplet"></i> <span id="modalFeatureAlcohol">Contiene
+                                            alcohol</span>
+                                    </span>
+                                </div>
+
+                                <!-- Acordeones dentro del modal -->
+                                <div class="modal-accordion-custom">
+                                    <div class="modal-accordion-item active">
+                                        <div class="modal-accordion-header">
+                                            <span>Descripción</span>
+                                            <i class="bi bi-plus-lg modal-accordion-icon"></i>
+                                        </div>
+                                        <div class="modal-accordion-content">
+                                            <p id="modalAccordionDescripcion">Descripción completa del producto.</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="modal-accordion-item">
+                                        <div class="modal-accordion-header">
+                                            <span>Modo de Uso</span>
+                                            <i class="bi bi-plus-lg modal-accordion-icon"></i>
+                                        </div>
+                                        <div class="modal-accordion-content">
+                                            <p>Aplicar sobre la piel limpia y seca, en puntos de pulsación como muñecas,
+                                                cuello y detrás de las orejas.</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="modal-accordion-item">
+                                        <div class="modal-accordion-header">
+                                            <span>Más Información</span>
+                                            <i class="bi bi-plus-lg modal-accordion-icon"></i>
+                                        </div>
+                                        <div class="modal-accordion-content">
+                                            <ul class="mb-0">
+                                                <li>Familia olfativa: <strong id="modalInfoFamilia">Floral
+                                                        almizclada</strong></li>
+                                                <li>Notas de salida: <span id="modalInfoSalida">Bergamota, Mandarina,
+                                                        Naranja</span></li>
+                                                <li>Notas de corazón: <span id="modalInfoCorazon">Jazmín, Rosa,
+                                                        Ylang-Ylang</span></li>
+                                                <li>Notas de fondo: <span id="modalInfoFondo">Vainilla, Ámbar,
+                                                        Pachulí</span></li>
+                                                <li>Volumen: <span id="modalInfoVolumen">90 ml</span></li>
+                                                <li>País de origen: <span id="modalInfoPais">Brasil</span></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Recomendaciones -->
+                                <div class="modal-recommendations">
+                                    <h4><i class="bi bi-shield-check"></i> Recomendaciones</h4>
+                                    <p>Protege tu fragancia de la luz directa del sol y del calor, de lo contrario
+                                        podría alterarse la composición de la fragancia y pasar a ser un triste recuerdo
+                                        de tu aroma favorito.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ============================================================ -->
+            <!-- ===== BARRA FIJA EN MÓVIL (FUERA del contenido) ===== -->
+            <!-- ============================================================ -->
+            <div class="modal-cart-actions-mobile" id="modalCartActionsMobile">
+                <div class="modal-quantity-selector">
+                    <button class="modal-qty-btn minus" id="modalDecrementBtnMobile">−</button>
+                    <span class="modal-qty-number" id="modalQtyNumberMobile">1</span>
+                    <button class="modal-qty-btn plus" id="modalIncrementBtnMobile">+</button>
+                </div>
+                <button class="modal-add-to-cart-btn" id="modalAddToCartBtnMobile">
+                    <i class="bi bi-bag-plus"></i> Añadir al carrito
+                </button>
+            </div>
+
+        </div> <!-- cierre modal-container -->
+    </div> <!-- cierre modal-overlay -->
+
+    <!-- ===== CARRITO FLOTANTE ===== -->
+    <div class="cart-float">
+        <button class="cart-icon-btn" id="cartToggle">
+            <i class="bi bi-cart3"></i> <span id="cartCount">0</span>
+        </button>
+        <div class="cart-sidebar" id="cartSidebar">
+            <div class="cart-header">
+                <h5><i class="bi bi-bag-check"></i> Mi Carrito</h5>
+                <button class="btn-close-custom" id="closeCart"><i class="bi bi-x-lg"></i></button>
+            </div>
+            <div class="cart-items" id="cartItems">
+                <p class="empty-cart text-center">🛒 Aún no tienes productos</p>
+            </div>
+            <div class="cart-footer">
+                <div class="cart-total d-flex justify-content-between mb-3">
+                    <span><strong>Total:</strong></span>
+                    <strong id="cartTotalPrice">S/ 0.00</strong>
+                </div>
+                <a class="checkout-btn w-100 d-block text-center text-decoration-none" href="/compra-final"><i class="bi bi-credit-card"></i> Finalizar compra</a>
+            </div>
+        </div>
+    </div>
+
+   <!-- PIE DE PÁGINA (FOOTER) - Información de contacto y enlaces -->
+    <footer class="footer pt-5 pb-3 mt-5">
+        <div class="container">
+            <div class="row">
+
+                <!-- Sección de marca (izquierda) -->
+                <div class="col-md-4 mb-4 text-center"> 
+                    <h2>VELVET ESSENCE</h2>
+                    <p>Fragancias exclusivas que reflejan tu esencia y personalidad.</p>
+                </div>
+
+                <!-- Sección de navegación (enlaces del menú) -->
+                <div class="col-md-2 mb-4 text-center">
+                    <h5>Menu</h5>
+                    <a href="#">Inicio</a><br>
+                    <a href="#">Perfumes</a><br>
+                    <a href="#">Colecciones</a><br>
+                    <a href="#">Nosotros</a>
+                </div>
+
+                <!-- Sección de contacto (teléfono y email) -->
+                <div class="col-md-3 mb-4 text-center">
+                    <h5>Contacto</h5>
+                    <p>Lima, Perú</p>
+                    <p>+51 999 999 999</p>
+                    <p>contacto@velvet.com</p>
+                </div>
+
+                <!-- Sección de suscripción (formulario de email con validación) -->
+                <div class="col-md-3 mb-4 text-center">
+                    <h5>Suscríbete</h5>
+                    <p>Recibe novedades y ofertas exclusivas.</p>
+                    <!-- Formulario de suscripción con validación JavaScript -->
+                    <form id="subscribeForm">
+                        <!-- Campo de email obligatorio -->
+                        <input type="email" class="form-control mb-2 rounded-0" id="emailSuscripcion" placeholder="Tu email" required>
+                        <!-- Alerta de error (oculta por defecto) -->
+                        <div id="errorSubscribe" class="alert alert-danger alert-sm d-none mb-2" role="alert" style="font-size: 12px;">
+                            Por favor ingresa un email válido
+                        </div>
+                        <!-- Botón de envío con evento submit -->
+                        <button type="submit" class="btn btn-dark rounded-0 w-100">Enviar</button>
+                    </form>
+                </div>
+
+            </div>
+
+            <!-- Copyright y versión -->
+            <div class="footer-bottom text-center">
+                <p class="mb-0">
+                    © 2026 Velvet Essence — v1.5
+                </p>
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- JS Personalizado -->
+    <script th:inline="javascript">
+        window.productosDesdeThymeleaf = /*[[${productosData}]]*/ [];
+    </script>
+    <script th:src="@{/js/productos.js}"></script>
+        <script src="js/script.js"></script>
+</body>
+
+</html>

@@ -40,15 +40,22 @@ function isCartEnabled() {
 function saveCart() {
     if (!isCartEnabled()) return;
     localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart));
+    localStorage.setItem('carrito', JSON.stringify(cart));
 }
 
 function loadCart() {
     if (!isCartEnabled()) return;
-    const savedCart = localStorage.getItem(CART_STORAGE_KEY);
+    const savedCart = localStorage.getItem(CART_STORAGE_KEY) || localStorage.getItem('carrito');
     if (savedCart) {
         try {
             const parsed = JSON.parse(savedCart);
-            cart = Array.isArray(parsed) ? parsed : [];
+            cart = Array.isArray(parsed) ? parsed.map(item => ({
+                ...item,
+                cantidad: item.cantidad || item.quantity || 1,
+                precio: Number(item.precio || item.price || 0),
+                nombre: item.nombre || item.name,
+                imagen: item.imagen || item.image
+            })) : [];
         } catch (error) {
             cart = [];
         }
@@ -71,6 +78,25 @@ const closeCartBtn = document.getElementById('closeCart');
 const cartItemsContainer = document.getElementById('cartItems');
 const cartCountSpan = document.getElementById('cartCount');
 const cartTotalPriceSpan = document.getElementById('cartTotalPrice');
+
+function updateCartUI() {
+    if (!isCartEnabled()) return;
+    cartCountSpan.textContent = cart.reduce((total, item) => total + (item.cantidad || 1), 0);
+    if (cart.length === 0) {
+        cartItemsContainer.innerHTML = '<p class="empty-cart text-center mt-4">🛒 Aún no tienes productos</p>';
+        cartTotalPriceSpan.textContent = 'S/ 0.00';
+        return;
+    }
+    let total = 0;
+    cartItemsContainer.innerHTML = cart.map((item, index) => {
+        const subtotal = item.precio * (item.cantidad || 1);
+        total += subtotal;
+        return `<div class="cart-item d-flex align-items-center justify-content-between mb-3"><div class="d-flex align-items-center"><img src="${item.imagen || '/assets/logo/logo-dorado.png'}" alt="${item.nombre || 'Producto'}" width="50" height="50" class="img-fluid me-2 rounded" style="object-fit:cover"><div><strong>${item.nombre || 'Producto'}</strong><small class="d-block text-muted">Cant: ${item.cantidad || 1} x S/ ${item.precio.toFixed(2)}</small></div></div><div class="d-flex align-items-center gap-2"><span class="fw-bold small">S/ ${subtotal.toFixed(2)}</span><button class="remove-item btn p-1" data-index="${index}" type="button"><i class="bi bi-trash text-danger fs-5"></i></button></div></div>`;
+    }).join('');
+    cartTotalPriceSpan.textContent = `S/ ${total.toFixed(2)}`;
+    saveCart();
+    cartItemsContainer.querySelectorAll('.remove-item').forEach(button => button.addEventListener('click', () => { cart.splice(Number(button.dataset.index), 1); updateCartUI(); }));
+}
 
 
 // ===== ABRIR Y CERRAR CARRITO =====
@@ -245,7 +271,12 @@ function clearLoggedUser() {
     localStorage.removeItem(AUTH_STORAGE_KEY);
 }
 
-function logoutUser() {
+async function logoutUser() {
+    try {
+        await fetch('/auth/logout', { method: 'POST' });
+    } catch (error) {
+        console.warn('No se pudo notificar el cierre de sesion al servidor.', error);
+    }
     clearLoggedUser();
     updateNavbarAuthState();
     location.href = '/inicio';
@@ -312,3 +343,17 @@ function updateNavbarAuthState() {
 }
 
 document.addEventListener('DOMContentLoaded', updateNavbarAuthState);
+
+document.addEventListener('DOMContentLoaded', () => {
+    loadCart();
+    document.querySelectorAll('.btn-agregar-carrito').forEach(button => button.addEventListener('click', event => {
+        event.preventDefault();
+        const id = String(button.dataset.id);
+        const existing = cart.find(item => String(item.id) === id);
+        if (existing) existing.cantidad = (existing.cantidad || 1) + 1;
+        else cart.push({ id, nombre: button.dataset.nombre, precio: Number(button.dataset.precio), imagen: button.dataset.imagen, cantidad: 1 });
+        saveCart();
+        updateCartUI();
+        cartSidebar?.classList.add('open');
+    }));
+});

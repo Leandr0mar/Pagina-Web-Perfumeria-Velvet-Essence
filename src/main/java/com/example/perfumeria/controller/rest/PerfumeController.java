@@ -1,44 +1,46 @@
 package com.example.perfumeria.controller.rest;
 
-import java.util.List;
-
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.example.perfumeria.models.Perfume;
 import com.example.perfumeria.services.PerfumeService;
+import jakarta.validation.Valid;
 
-@CrossOrigin(origins = "*")
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
 @RestController
-@RequestMapping("api/perfumes")
+@RequestMapping("/api/perfumes")
 public class PerfumeController {
 
     private final PerfumeService service;
+    public PerfumeController(PerfumeService service) { this.service = service; }
 
-    // Inyección por constructor del servicio
-    public PerfumeController(PerfumeService service) {
-        this.service = service;
-    }
-
-    // 1. Obtener TODOS los perfumes de la base de datos
     @GetMapping
-    public ResponseEntity<List<Perfume>> obtenerTodos() {
-        List<Perfume> perfumes = service.listarTodos();
-        return ResponseEntity.ok(perfumes);
-    }
+    public List<Perfume> obtenerTodos() { return service.listarTodos(); }
 
-    // 2. Obtener UN SOLO perfume por su ID
     @GetMapping("/{id}")
     public ResponseEntity<Perfume> obtenerPorId(@PathVariable Long id) {
-        try {
-            Perfume perfume = service.buscarPorId(id);
-            return ResponseEntity.ok(perfume);
-        } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build(); // Devuelve un error 404 si no existe
-        }
+        try { return ResponseEntity.ok(service.buscarPorId(id)); }
+        catch (RuntimeException ex) { return ResponseEntity.notFound().build(); }
     }
+
+    @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Perfume> crear(@Valid @RequestBody Perfume perfume) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(service.crear(perfume));
+    }
+
+    @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public Perfume actualizar(@PathVariable Long id, @Valid @RequestBody Perfume perfume) {
+        return service.actualizar(id, perfume);
+    }
+
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void eliminar(@PathVariable Long id) { service.eliminar(id); }
 }

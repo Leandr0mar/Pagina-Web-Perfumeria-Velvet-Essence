@@ -8,14 +8,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.perfumeria.services.DireccionService;
+import com.example.perfumeria.repository.UsuarioRepository;
+import org.springframework.security.core.Authentication;
 
 @Controller
 public class AutenticacionUsuarioController {
 
     private final DireccionService direccionService;
+    private final UsuarioRepository usuarioRepository;
 
-    public AutenticacionUsuarioController(DireccionService direccionService) {
+    public AutenticacionUsuarioController(DireccionService direccionService, UsuarioRepository usuarioRepository) {
         this.direccionService = direccionService;
+        this.usuarioRepository = usuarioRepository;
     }
 
     @GetMapping("/iniciar-sesion")
@@ -30,8 +34,9 @@ public class AutenticacionUsuarioController {
     }
 
     @GetMapping("/direccion/nueva")
-    public String nuevaDireccion(Model model) {
-        model.addAttribute("direcciones", direccionService.listarTodas());
+    public String nuevaDireccion(Model model, Authentication authentication) {
+        Long usuarioId = usuarioRepository.findByCorreo(authentication.getName()).orElseThrow().getId();
+        model.addAttribute("direcciones", direccionService.listarPorUsuarioId(usuarioId));
         return "usuario/direccion";
     }
 

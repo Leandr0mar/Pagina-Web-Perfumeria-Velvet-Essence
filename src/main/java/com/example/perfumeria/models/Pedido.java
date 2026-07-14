@@ -32,6 +32,11 @@ public class Pedido {
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PedidoDetalle> pedidoDetalles = new ArrayList<>();
 
+    @NotNull(message = "La dirección de envío es obligatoria")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "direccion_id", nullable = false)
+    private Direccion direccion;
+
     public Pedido() {
     }
 
@@ -84,4 +89,13 @@ public class Pedido {
         pedidoDetalles.remove(detalle);
         detalle.setPedido(null);
     }
+
+    public Direccion getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(Direccion direccion) {
+        this.direccion = direccion;
+    }
 }
+

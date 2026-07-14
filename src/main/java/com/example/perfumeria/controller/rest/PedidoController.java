@@ -8,6 +8,7 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -22,6 +23,7 @@ public class PedidoController {
     }
 
     // 1. Listar todos los pedidos
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping
     public ResponseEntity<List<Pedido>> listarTodos() {
         List<Pedido> pedidos = service.listarTodos();
@@ -29,6 +31,7 @@ public class PedidoController {
     }
 
     // 2. Buscar pedido por ID
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/{id}")
     public ResponseEntity<Pedido> buscarPorId(@PathVariable Long id) {
         try {
@@ -47,6 +50,7 @@ public class PedidoController {
     }
 
     // 4. Actualizar pedido
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<Pedido> actualizar(@PathVariable Long id, @Valid @RequestBody Pedido pedidoActualizado) {
         try {
@@ -58,6 +62,7 @@ public class PedidoController {
     }
 
     // 5. Eliminar pedido (Se elimina en cascada junto con sus detalles)
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminar(@PathVariable Long id) {
         try {

@@ -1,6 +1,5 @@
 package com.example.perfumeria.controller.web;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,9 +12,11 @@ import com.example.perfumeria.services.PerfumeService;
 @Controller
 public class DetalleController {
 
-    //autowired para inyectar el servicio de productos sin necesidad de instanciarlo manualmente(new productoService())
-    @Autowired
     private PerfumeService perfumeService;
+
+    public DetalleController(PerfumeService perfumeService) {
+        this.perfumeService = perfumeService;
+    }
 
     //mapeamos la ruta para mostrar el detalle del producto, con el id como variable de ruta
     @GetMapping("/producto/detalle/{id}")
@@ -30,4 +31,7 @@ public class DetalleController {
 
         return "productos/productoDetalle";
     }
+
+
+
 }

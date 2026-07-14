@@ -9,6 +9,7 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -23,6 +24,7 @@ public class UsuarioController {
 
     // 1. Listar todos: Retorna 200 OK con la lista
     @GetMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<Usuario>> listarTodos(){
         List<Usuario> usuarios = service.listarTodos();
         return ResponseEntity.ok(usuarios); 
@@ -30,6 +32,7 @@ public class UsuarioController {
 
     // 2. Buscar por ID: Maneja el error si el ID no existe (Retorna 404 en vez de romper la app)
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Usuario> buscarPorId(@PathVariable Long id) {
         try {
             Usuario usuario = service.buscarPorId(id);
@@ -48,6 +51,7 @@ public class UsuarioController {
     
     // 4. Eliminar: Retorna 204 No Content porque el recurso ya no existe y no hay cuerpo que devolver
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> eliminar(@PathVariable Long id){
         try {
             service.eliminar(id);
@@ -59,6 +63,7 @@ public class UsuarioController {
 
     // 5. Actualizar: Retorna 200 OK con el usuario modificado, o 404 si falló la búsqueda
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Usuario> actualizar(@PathVariable Long id, @RequestBody Usuario usuarioActualizado){
         try {
             Usuario usuarioEditado = service.actualizar(id, usuarioActualizado);

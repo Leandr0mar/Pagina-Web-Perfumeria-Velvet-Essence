@@ -1,7 +1,10 @@
 package com.example.perfumeria.models;
 
+import java.util.Set;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity
@@ -42,6 +45,14 @@ public class Usuario {
     @Column(name= "estado", nullable = false)
     private boolean estado = true;
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JsonIgnore
+    @JoinTable(name = "usuario_rol",
+            joinColumns = @JoinColumn(name = "usuario_id"),
+            inverseJoinColumns = @JoinColumn(name = "rol_id"))
+    private Set<Rol> roles;
+
+    
     public Usuario() {
     }
 
@@ -101,4 +112,13 @@ public class Usuario {
         this.estado = estado;
     }
 
+    public Set<Rol> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Rol> roles) {
+        this.roles = roles;
+    }
+
+    
 }

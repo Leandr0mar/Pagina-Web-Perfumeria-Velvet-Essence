@@ -3,6 +3,7 @@ package com.example.perfumeria.models;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "direcciones")
@@ -38,9 +39,12 @@ public class Direccion {
     private String codigoPostal;
     
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
     @JoinColumn(name = "usuario_id", nullable = false)
     private Usuario usuario;
 
+
+    
     public Direccion() {
     }
 

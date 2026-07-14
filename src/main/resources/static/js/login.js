@@ -1,83 +1,51 @@
-// ===== LOGIN SIMPLE CON ESTADO LOCAL =====
-const LOGIN_STORAGE_KEY = 'velvetEssenceUser';
-const loginForm = document.getElementById('loginForm');
-const loginAlert = document.getElementById('loginAlert');
+document.addEventListener('DOMContentLoaded', function() {
+    const loginForm = document.getElementById('loginForm');
+    const loginAlert = document.getElementById('loginAlert');
 
-function mostrarLoginError(mensaje) {
-    if (!loginAlert) return;
-    loginAlert.innerHTML = `
-        <div class="alert alert-danger py-2 text-center" role="alert">
-            ${mensaje}
-        </div>
-    `;
-}
+    if(loginForm) {
+        loginForm.addEventListener('submit', async function(event) {
+            // Evita que el navegador recargue la página o haga el POST tradicional
+            event.preventDefault();
 
-function limpiarLoginError() {
-    if (!loginAlert) return;
-    loginAlert.innerHTML = '';
-}
+            // Capturar los valores de los inputs
+            const correo = document.getElementById('correo').value;
+            const contrasenia = document.getElementById('contrasenia').value;
 
-function guardarUsuarioLogueado(usuario) {
-    localStorage.setItem(LOGIN_STORAGE_KEY, JSON.stringify(usuario));
-}
+            // Ocultar alerta de error previa
+            loginAlert.classList.add('d-none');
 
-function obtenerUsuarioLogueado() {
-    const json = localStorage.getItem(LOGIN_STORAGE_KEY);
-    if (!json) return null;
-    try {
-        return JSON.parse(json);
-    } catch (error) {
-        return null;
+            try {
+                // Hacer la petición REST al backend
+                const response = await fetch('/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ 
+                        correo: correo, 
+                        contrasenia: contrasenia 
+                    })
+                });
+
+                if (response.ok) {
+                    // Si el login es exitoso (200 OK), leemos el JSON devuelto
+                    const data = await response.json();
+                    if (data.user) {
+                        localStorage.setItem('velvetEssenceUser', JSON.stringify(data.user));
+                    }
+                    
+                    // Redirigir según el rol (el backend nos mandará /index o /admin/dashboard)
+                    window.location.href = data.redirectUrl || '/inicio';
+                } else {
+                    // Si falla (401 Unauthorized, 403, 400), mostramos error
+                    loginAlert.textContent = "Credenciales incorrectas. Verifica tu correo y contraseña.";
+                    loginAlert.classList.remove('d-none');
+                }
+            } catch (error) {
+                console.error('Error de red al intentar iniciar sesión:', error);
+                loginAlert.textContent = "Ocurrió un error en el servidor. Inténtalo más tarde.";
+                loginAlert.classList.remove('d-none');
+            }
+        });
     }
-}
-
-if (loginForm) {
-    loginForm.addEventListener('submit', async (event) => {
-        event.preventDefault();
-        limpiarLoginError();
-
-        const email = document.getElementById('email').value.trim();
-        const password = document.getElementById('password').value;
-        const remember = document.getElementById('remember').checked;
-
-        if (!email || !password) {
-            mostrarLoginError('Por favor ingresa correo y contraseña.');
-            return;
-        }
-
-        try {
-            const response = await fetch('/api/usuarios');
-            if (!response.ok) {
-                throw new Error('No se pudo conectar con el servidor.');
-            }
-
-            const usuarios = await response.json();
-            const usuarioEncontrado = usuarios.find(u => u.correo?.toLowerCase() === email.toLowerCase() && u.contrasenia === password);
-
-            if (!usuarioEncontrado) {
-                mostrarLoginError('Correo o contraseña incorrectos.');
-                return;
-            }
-
-            const usuarioGuardado = {
-                id: usuarioEncontrado.id,
-                nombre: usuarioEncontrado.nombre,
-                apellido: usuarioEncontrado.apellido,
-                correo: usuarioEncontrado.correo
-            };
-
-            guardarUsuarioLogueado(usuarioGuardado, remember);
-            alert(`¡Bienvenido ${usuarioGuardado.nombre}!`);
-            window.location.href = '/inicio';
-        } catch (error) {
-            console.error('Error de login:', error);
-            mostrarLoginError('Ocurrió un error al iniciar sesión. Intenta nuevamente.');
-        }
-    });
-}
-
-// Si el usuario ya inició sesión, redirige directamente a inicio
-const usuarioExistente = obtenerUsuarioLogueado();
-if (usuarioExistente) {
-    window.location.href = '/inicio';
-}
+});

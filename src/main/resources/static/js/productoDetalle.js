@@ -69,19 +69,21 @@ document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
         // Validar cantidad mínima
         if (isNaN(quantity) || quantity < 1) quantity = 1;
         
-        // Buscar si el producto ya existe
-        const existingIndex =
-        cart.findIndex(item => item.sku === sku);
+// Buscar si el producto ya existe (usamos id en lugar de sku)
+        const existingIndex = cart.findIndex(item => item.id === sku);
 
         if (existingIndex !== -1) {
-
-            // Si ya existe, aumenta cantidad
-            cart[existingIndex].quantity += quantity;
-
+            // Si ya existe, aumenta cantidad (usando 'cantidad')
+            cart[existingIndex].cantidad += quantity;
         } else {
-
-            // Si no existe, agregar producto
-            cart.push({ image,name, price, sku, quantity });
+            // Si no existe, agregar producto en ESPAÑOL
+            cart.push({ 
+                imagen: image, 
+                nombre: name, 
+                precio: price, 
+                id: sku, 
+                cantidad: quantity 
+            });
         }
         
         // Actualizar interfaz del carrito
@@ -107,91 +109,7 @@ document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
    - Mostrar carrito vacío
 */
 
-function updateCartUI() {
 
-    // Calcular cantidad total de productos
-    const totalItems =
-    cart.reduce((acc, item) => acc + item.quantity, 0);
-
-    // Actualizar contador visual
-    cartCountSpan.innerText = totalItems;
-    
-    // Verificar si el carrito está vacío
-    if (cart.length === 0) {
-
-        cartItemsContainer.innerHTML =
-        '<p class="empty-cart text-center mt-4">🛒 Aún no tienes productos</p>';
-
-        cartTotalPriceSpan.innerText = 'S/ 0.00';
-
-        return;
-    }
-    
-    let html = '';
-    let total = 0;
-
-    // Recorrer productos del carrito
-    cart.forEach((item, idx) => {
-
-        // Calcular subtotal
-        const subtotal = item.price * item.quantity ;
-
-        total += subtotal;
-
-        // Crear HTML dinámico con el botón de eliminar incluido
-        html += `
-<div class="cart-item d-flex align-items-center justify-content-between mb-3">
-    <div class="d-flex align-items-center">
-        <img src="${item.image}" alt="${item.name}" width="50" height="50" class="img-fluid me-2 rounded" style="object-fit: cover;">
-        <div>
-            <strong style="display: block; max-width: 180px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${item.name}</strong>
-            <small class="text-muted">
-                Cant: ${item.quantity} x S/ ${item.price.toFixed(2)}
-            </small>
-        </div>
-    </div>
-    <div class="d-flex align-items-center gap-2">
-        <span class="fw-bold text-dark small">S/ ${subtotal.toFixed(2)}</span>
-        <button class="remove-item btn p-1" data-index="${idx}" title="Eliminar producto">
-            <i class="bi bi-trash text-danger fs-5"></i>
-        </button>
-    </div>
-</div>
-        `;
-    });
-
-    // Insertar productos generados dinámicamente
-    cartItemsContainer.innerHTML = html;
-
-    // Mostrar precio total del carrito
-    cartTotalPriceSpan.innerText = `S/ ${total.toFixed(2)}`;
-
-    if (typeof saveCart === 'function') {
-        saveCart();
-    }
-
-    // ===== ASIGNAR EVENTOS DE ELIMINACIÓN (Dinámicos) =====
-    /* Al estar dentro de updateCartUI, garantizamos que cada vez que 
-       el carrito se actualice, los nuevos botones vuelvan a tener funcionalidad.
-    */
-    cartItemsContainer.querySelectorAll('.remove-item').forEach(btn => {
-        btn.addEventListener('click', () => {
-            // Obtener índice del producto
-            const index = parseInt(btn.getAttribute('data-index'));
-
-            // Eliminar producto del array
-            cart.splice(index, 1);
-
-            // Actualizar interfaz del carrito
-            updateCartUI();
-
-            // Cerrar carrito si queda vacío
-            if (cart.length === 0) {
-                cartSidebar.classList.remove('open');
-            }
-        });
-    });
-}
 
 
 // ========== CONTROL DE CANTIDAD ==========

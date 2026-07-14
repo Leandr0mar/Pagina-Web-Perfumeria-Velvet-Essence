@@ -1,0 +1,1 @@
+body { background: #f5f2ed; } h1, h2 { font-family: Georgia, serif; } .stat { background: #1e1b18; color: #fff; padding: 1.4rem; border-radius: 8px; display:flex; justify-content:space-between; align-items:center; } .stat strong { font-size: 2rem; } .card { border: 0; box-shadow: 0 4px 20px #00000012; }

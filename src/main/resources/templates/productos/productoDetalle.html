@@ -20,7 +20,6 @@
 
 <body class="detalle-body">
 
-    <!-- NAVEGACIÓN DE CABECERA - Barra superior con logo y menú -->
     <nav class="navbar navbar-expand-lg fixed-top custom-navbar">
         <div class="container-fluid px-4">
             <!-- Logo y nombre de la marca (parte izquierda del navbar) -->
@@ -51,7 +50,7 @@
                 <!-- Enlaces del menú (Inicio, Perfumes, etc.) -->
                 <ul class="navbar-nav mx-auto text-center">
                     <li class="nav-item"><a class="nav-link active" href="/inicio">Inicio</a></li>
-                    <li class="nav-item"><a class="nav-link" href="">Perfumes</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/productos">Perfumes</a></li>
                     <li class="nav-item"><a class="nav-link" href="/colecciones">Colecciones</a></li>
                     <li class="nav-item"><a class="nav-link" href="/nosotros">Nosotros</a></li>
                     <ul id="mobileAuthList" class="navbar-nav mx-auto text-center d-lg-none mt-3">
@@ -263,12 +262,15 @@
             <div class="cart-items" id="cartItems">
                 <p class="empty-cart text-center">🛒 Aún no tienes productos</p>
             </div>
-            <div class="cart-footer">
-                <div class="cart-total d-flex justify-content-between mb-3">
-                    <span><strong>Total:</strong></span>
-                    <strong id="cartTotalPrice">S/ 0.00</strong>
+            <div class="cart-footer p-3 border-top">
+                <div class="d-flex justify-content-between mb-3">
+                    <span class="fw-bold">Total:</span>
+                    <span id="cartTotalPrice" class="fw-bold">S/ 0.00</span>
                 </div>
-                <button class="checkout-btn w-100"><i class="bi bi-credit-card"></i> Finalizar compra</button>
+                
+                <a href="/compra-final" id="checkoutBtn" class="btn btn-dark w-100 rounded-0 py-2">
+                    Finalizar Compra
+                </a>
             </div>
         </div>
     </div>

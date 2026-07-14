@@ -2,91 +2,64 @@ package com.example.perfumeria.controller.rest;
 
 import com.example.perfumeria.dto.DireccionRequest;
 import com.example.perfumeria.models.Direccion;
+import com.example.perfumeria.models.Usuario;
+import com.example.perfumeria.repository.UsuarioRepository;
 import com.example.perfumeria.services.DireccionService;
-
 import jakarta.validation.Valid;
-import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin(origins = "*")
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/direcciones")
 public class DireccionController {
-
     private final DireccionService service;
+    private final UsuarioRepository usuarios;
 
-    // Inyección por constructor
-    public DireccionController(DireccionService service) {
+    public DireccionController(DireccionService service, UsuarioRepository usuarios) {
         this.service = service;
+        this.usuarios = usuarios;
     }
 
-    // 1. Listar todas las direcciones
     @GetMapping
-    public ResponseEntity<List<Direccion>> listarTodas() {
-        List<Direccion> direcciones = service.listarTodas();
-        return ResponseEntity.ok(direcciones);
+    public List<Direccion> misDirecciones(Authentication authentication) {
+        return service.listarPorUsuarioId(usuarioActual(authentication).getId());
     }
 
-    // 1b. Listar direcciones de un usuario
-    @GetMapping("/usuario/{usuarioId}")
-    public ResponseEntity<List<Direccion>> listarPorUsuario(@PathVariable Long usuarioId) {
-        List<Direccion> direcciones = service.listarPorUsuarioId(usuarioId);
-        return ResponseEntity.ok(direcciones);
-    }
-
-    // 2. Buscar dirección por ID
-    @GetMapping("/{id}")
-    public ResponseEntity<Direccion> buscarPorId(@PathVariable Long id) {
-        try {
-            Direccion direccion = service.buscarPorId(id);
-            return ResponseEntity.ok(direccion);
-        } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build();
-        }
-    }
-
-    // 3. Crear dirección
     @PostMapping
-    public ResponseEntity<Direccion> crear(@Valid @RequestBody DireccionRequest request) {
-        Direccion direccion = new Direccion();
-        direccion.setPais(request.getPais());
-        direccion.setDepartamento(request.getDepartamento());
-        direccion.setDistrito(request.getDistrito());
-        direccion.setDireccion(request.getDireccion());
-        direccion.setCodigoPostal(request.getCodigoPostal());
-
-        Direccion nuevaDireccion = service.crear(direccion, request.getUsuarioId());
-        return ResponseEntity.status(HttpStatus.CREATED).body(nuevaDireccion);
+    public ResponseEntity<Direccion> crear(@Valid @RequestBody DireccionRequest request,
+                                           Authentication authentication) {
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(service.crear(toEntity(request), usuarioActual(authentication).getId()));
     }
 
-    // 4. Actualizar dirección
     @PutMapping("/{id}")
-    public ResponseEntity<Direccion> actualizar(@PathVariable Long id, @Valid @RequestBody DireccionRequest request) {
-        try {
-            Direccion direccionActualizada = new Direccion();
-            direccionActualizada.setPais(request.getPais());
-            direccionActualizada.setDepartamento(request.getDepartamento());
-            direccionActualizada.setDistrito(request.getDistrito());
-            direccionActualizada.setDireccion(request.getDireccion());
-            direccionActualizada.setCodigoPostal(request.getCodigoPostal());
-
-            Direccion direccionEditada = service.actualizar(id, direccionActualizada, request.getUsuarioId());
-            return ResponseEntity.ok(direccionEditada);
-        } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build();
-        }
+    public Direccion actualizar(@PathVariable Long id, @Valid @RequestBody DireccionRequest request,
+                                Authentication authentication) {
+        return service.actualizar(id, toEntity(request), usuarioActual(authentication).getId());
     }
 
-    // 5. Eliminar dirección
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminar(@PathVariable Long id, @RequestParam Long usuarioId) {
-        try {
-            service.eliminar(id, usuarioId);
-            return ResponseEntity.noContent().build();
-        } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build();
-        }
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void eliminar(@PathVariable Long id, Authentication authentication) {
+        service.eliminar(id, usuarioActual(authentication).getId());
+    }
+
+    private Usuario usuarioActual(Authentication authentication) {
+        return usuarios.findByCorreo(authentication.getName())
+                .orElseThrow(() -> new IllegalStateException("Usuario autenticado no encontrado"));
+    }
+
+    private Direccion toEntity(DireccionRequest request) {
+        Direccion d = new Direccion();
+        d.setPais(request.getPais());
+        d.setDepartamento(request.getDepartamento());
+        d.setDistrito(request.getDistrito());
+        d.setDireccion(request.getDireccion());
+        d.setCodigoPostal(request.getCodigoPostal());
+        return d;
     }
 }

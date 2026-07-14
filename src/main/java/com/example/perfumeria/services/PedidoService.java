@@ -28,6 +28,10 @@ public class PedidoService {
 
     // 3. Registrar un nuevo pedido
     public Pedido crear(Pedido pedido) {
+        // Enlazar cada detalle con este pedido antes de guardarlo en la BD
+        if (pedido.getPedidoDetalles() != null) {
+            pedido.getPedidoDetalles().forEach(detalle -> detalle.setPedido(pedido));
+        }
         return repository.save(pedido);
     }
 
@@ -41,6 +45,7 @@ public class PedidoService {
         
         // Al actualizar los detalles en cascada, JPA limpia los anteriores y añade los nuevos
         pedido.setPedidoDetalles(pedidoActualizado.getPedidoDetalles());
+        pedido.setDireccion(pedidoActualizado.getDireccion());
 
         return repository.save(pedido);
     }
