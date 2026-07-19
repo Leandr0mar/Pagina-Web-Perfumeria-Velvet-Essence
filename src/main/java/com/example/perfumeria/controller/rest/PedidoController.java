@@ -1,6 +1,8 @@
 package com.example.perfumeria.controller.rest;
 
 import com.example.perfumeria.models.Pedido;
+import com.example.perfumeria.models.Usuario;
+import com.example.perfumeria.repository.UsuarioRepository;
 import com.example.perfumeria.services.PedidoService;
 
 import jakarta.validation.Valid;
@@ -9,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -16,10 +19,12 @@ import org.springframework.security.access.prepost.PreAuthorize;
 public class PedidoController {
 
     private final PedidoService service;
+    private final UsuarioRepository usuarios;
 
     // Inyección por constructor
-    public PedidoController(PedidoService service) {
+    public PedidoController(PedidoService service, UsuarioRepository usuarios) {
         this.service = service;
+        this.usuarios = usuarios;
     }
 
     // 1. Listar todos los pedidos
@@ -43,8 +48,15 @@ public class PedidoController {
     }
 
     // 3. Crear / Procesar un pedido
-    @PostMapping
-    public ResponseEntity<Pedido> crear(@Valid @RequestBody Pedido pedido) {
+@PostMapping
+    public ResponseEntity<Pedido> crear(@Valid @RequestBody Pedido pedido, Authentication authentication) {
+        // 1. Obtenemos el usuario autenticado a través del JWT
+        Usuario usuarioActual = usuarios.findByCorreo(authentication.getName())
+                .orElseThrow(() -> new RuntimeException("Usuario no autenticado"));
+        
+        // 2. Asignamos el usuario real al pedido (ignorando el que venga del frontend)
+        pedido.setUsuario(usuarioActual);
+        
         Pedido nuevoPedido = service.crear(pedido);
         return ResponseEntity.status(HttpStatus.CREATED).body(nuevoPedido);
     }

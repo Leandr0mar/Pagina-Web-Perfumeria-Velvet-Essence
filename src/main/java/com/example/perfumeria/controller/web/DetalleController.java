@@ -18,7 +18,6 @@ public class DetalleController {
         this.perfumeService = perfumeService;
     }
 
-    //mapeamos la ruta para mostrar el detalle del producto, con el id como variable de ruta
     @GetMapping("/producto/detalle/{id}")
 
     //usamos @PathVariable para extraer el id de la URL y Model para pasar datos a la vista

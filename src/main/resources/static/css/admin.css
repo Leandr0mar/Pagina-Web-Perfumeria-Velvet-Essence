@@ -1,1 +1,234 @@
-body { background: #f5f2ed; } h1, h2 { font-family: Georgia, serif; } .stat { background: #1e1b18; color: #fff; padding: 1.4rem; border-radius: 8px; display:flex; justify-content:space-between; align-items:center; } .stat strong { font-size: 2rem; } .card { border: 0; box-shadow: 0 4px 20px #00000012; }
+/* ========================================
+ADMIN.CSS - ESTILOS DEL DASHBOARD
+======================================== */
+
+.admin-body {
+background-color: #fcf9f5;
+display: flex;
+flex-direction: row;
+min-height: 100vh;
+}
+
+/* ===== SIDEBAR ===== */
+.admin-sidebar {
+width: 280px;
+background-color: #1a1a1a;
+color: #ffffff;
+position: fixed;
+height: 100vh;
+left: 0;
+top: 0;
+display: flex;
+flex-direction: column;
+box-shadow: 4px 0 15px rgba(0,0,0,0.05);
+z-index: 1000;
+}
+
+.sidebar-header {
+padding: 40px 30px;
+border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.sidebar-header .logo {
+font-size: 1.3rem;
+color: #C5A059 !important;
+}
+
+.admin-subtitle {
+font-family: 'Montserrat', sans-serif;
+font-size: 0.75rem;
+text-transform: uppercase;
+letter-spacing: 2px;
+color: #888;
+margin-top: 5px;
+margin-bottom: 0;
+}
+
+.sidebar-nav {
+display: flex;
+flex-direction: column;
+padding: 20px 0;
+flex-grow: 1;
+}
+
+.sidebar-nav a {
+font-family: 'Montserrat', sans-serif;
+color: #a0a0a0;
+text-decoration: none;
+padding: 15px 30px;
+font-size: 0.9rem;
+font-weight: 500;
+transition: all 0.3s ease;
+display: flex;
+align-items: center;
+border-left: 3px solid transparent;
+}
+
+.sidebar-nav a i {
+margin-right: 15px;
+font-size: 1.1rem;
+}
+
+.sidebar-nav a:hover, .sidebar-nav a.active {
+color: #ffffff;
+background-color: rgba(255,255,255,0.03);
+border-left-color: #C5A059;
+}
+
+.sidebar-footer {
+padding: 30px;
+border-top: 1px solid rgba(255,255,255,0.05);
+}
+
+.btn-store {
+display: block;
+text-align: center;
+background: transparent;
+color: #C5A059;
+border: 1px solid #C5A059;
+padding: 10px;
+text-decoration: none;
+font-family: 'Montserrat', sans-serif;
+font-size: 0.85rem;
+text-transform: uppercase;
+letter-spacing: 1px;
+transition: all 0.3s ease;
+}
+
+.btn-store:hover {
+background: #C5A059;
+color: #ffffff;
+}
+
+/* ===== MAIN CONTENT ===== */
+.admin-content {
+margin-left: 280px;
+padding: 50px;
+width: calc(100% - 280px);
+}
+
+.admin-topbar {
+display: flex;
+justify-content: space-between;
+align-items: flex-end;
+}
+
+.text-gold {
+color: #b38b60;
+}
+
+/* ===== TARJETAS DE MÉTRICAS ===== */
+.stat-card {
+background: #ffffff;
+border: 1px solid #e3d6c3;
+padding: 25px 30px;
+display: flex;
+align-items: center;
+transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.stat-card:hover {
+transform: translateY(-5px);
+box-shadow: 0 15px 30px rgba(179, 139, 96, 0.1);
+}
+
+.stat-icon {
+width: 60px;
+height: 60px;
+background: #f8f2e9;
+color: #b38b60;
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 1.8rem;
+margin-right: 20px;
+}
+
+.stat-info p {
+font-family: 'Montserrat', sans-serif;
+font-size: 0.8rem;
+text-transform: uppercase;
+letter-spacing: 1px;
+color: #666;
+margin-bottom: 5px;
+}
+
+.stat-info h3 {
+font-family: 'Playfair Display', serif;
+font-size: 2.2rem;
+color: #1a1a1a;
+margin: 0;
+}
+
+/* ===== SECCIONES Y TABLAS ===== */
+.section-header {
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin-bottom: 20px;
+padding-bottom: 10px;
+border-bottom: 1px solid #e3d6c3;
+}
+
+.custom-card {
+background: #ffffff;
+border: 1px solid #e3d6c3;
+padding: 0;
+box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+}
+
+.custom-table {
+margin-bottom: 0;
+font-family: 'Montserrat', sans-serif;
+}
+
+.custom-table thead th {
+background-color: #f8f2e9;
+color: #2b2a27;
+font-weight: 600;
+font-size: 0.8rem;
+text-transform: uppercase;
+letter-spacing: 1px;
+padding: 15px 20px;
+border-bottom: 2px solid #e3d6c3;
+}
+
+.custom-table tbody td {
+padding: 15px 20px;
+border-bottom: 1px solid #f0e9df;
+color: #444;
+font-size: 0.95rem;
+}
+
+.custom-table tbody tr:hover {
+background-color: #fcf9f5;
+}
+
+/* Botones de acción en tablas */
+.btn-action {
+background: transparent;
+border: 1px solid #ddd;
+color: #666;
+border-radius: 0;
+padding: 5px 10px;
+margin-left: 5px;
+transition: all 0.2s ease;
+}
+
+.btn-action.edit-perfume:hover {
+background: #2b2a27;
+border-color: #2b2a27;
+color: #fff;
+}
+
+.btn-action[class*="delete-"]:hover {
+background: #dc3545;
+border-color: #dc3545;
+color: #fff;
+}
+
+/* Scroll suave para la navegación lateral */
+html {
+scroll-behavior: smooth;
+}

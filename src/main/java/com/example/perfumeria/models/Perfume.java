@@ -38,11 +38,11 @@ public class Perfume {
 
     @Positive(message = "El precio debe ser un número mayor a cero")
     @Column(name = "precio", nullable = false)
-    private double precio;
+    private Double precio;
 
     @Min(value = 0, message = "El stock no puede ser un número negativo")
     @Column(name = "stock", nullable = false)
-    private int stock;
+    private Integer stock;
 
     @Size(max = 50, message = "La familia olfativa no puede superar los 50 caracteres")
     @Column(name = "familia_olfativa", length = 50)
@@ -93,7 +93,7 @@ public class Perfume {
 
     // Constructor completo
     public Perfume(Long id, String nombre, String marca, String categoria, String presentacion, String descripcion,
-                   double precio, int stock, String familiaOlfativa, String modoDeUso, String volumen, String paisOrigen,
+                   Double precio, Integer stock, String familiaOlfativa, String modoDeUso, String volumen, String paisOrigen,
                    List<String> notaSalida, List<String> notaCorazon, List<String> notaFondo, String imagen, String genero) {
         this.id = id;
         this.nombre = nombre;
@@ -164,19 +164,19 @@ public class Perfume {
         this.descripcion = descripcion;
     }
 
-    public double getPrecio() {
+    public Double getPrecio() {
         return precio;
     }
 
-    public void setPrecio(double precio) {
+    public void setPrecio(Double precio) {
         this.precio = precio;
     }
 
-    public int getStock() {
+    public Integer getStock() {
         return stock;
     }
 
-    public void setStock(int stock) {
+    public void setStock(Integer stock) {
         this.stock = stock;
     }
 

@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let payments = JSON.parse(localStorage.getItem(paymentKey) || '[]');
     let addresses = [];
     let editingAddressId = null;
+    let selectedAddressId = null;
     const modal = document.getElementById('modalDireccion') ? new bootstrap.Modal(document.getElementById('modalDireccion')) : null;
 
     // 2. Funciones de Renderizado
@@ -32,10 +33,65 @@ document.addEventListener('DOMContentLoaded', () => {
         const info = document.getElementById('addressInfo'); 
         if (!info) return;
         
-        info.innerHTML = addresses.length ? addresses.map(address => `<div class="address-card p-3 mb-2"><p class="address-name mb-2"><strong><i class="bi bi-geo-alt"></i> ${address.distrito}</strong></p><p class="address-detail mb-2"><i class="bi bi-house-door"></i> ${address.direccion}</p><p class="address-city mb-2">${address.departamento}, ${address.pais} - ${address.codigoPostal}</p><button class="btn-link edit-address" data-id="${address.id}">Editar</button> <button class="btn-link delete-address text-danger" data-id="${address.id}">Eliminar</button></div>`).join('') : '<div class="text-center py-4"><i class="bi bi-geo-alt fs-1 text-muted"></i><p class="text-muted mt-2">No tienes una direccion guardada</p></div>';
+        // Si hay direcciones pero ninguna seleccionada, marcamos la primera por defecto
+        if (addresses.length > 0 && !selectedAddressId) {
+            selectedAddressId = addresses[0].id;
+        } else if (addresses.length === 0) {
+            selectedAddressId = null;
+        }
         
-        document.querySelectorAll('.edit-address').forEach(button => button.onclick = () => openAddress(addresses.find(a => String(a.id) === button.dataset.id)));
-        document.querySelectorAll('.delete-address').forEach(button => button.onclick = async () => { if (confirm('Eliminar esta direccion?')) { await fetch('/api/direcciones/' + button.dataset.id, { method: 'DELETE' }); await loadAddresses(); } });
+        info.innerHTML = addresses.length ? addresses.map(address => `
+            <div class="address-card p-3 mb-2 rounded ${selectedAddressId === address.id ? 'border border-2 border-dark shadow-sm bg-light' : 'border border-1'}" 
+                 style="cursor: pointer; position: relative;" 
+                 data-id="${address.id}">
+                
+                <!-- Selector visual -->
+                <div class="form-check position-absolute top-0 end-0 mt-3 me-3">
+                    <input class="form-check-input" type="radio" name="addressSelection" 
+                           ${selectedAddressId === address.id ? 'checked' : ''} style="cursor: pointer;">
+                </div>
+
+                <p class="address-name mb-2"><strong><i class="bi bi-geo-alt"></i> ${address.distrito}</strong></p>
+                <p class="address-detail mb-2"><i class="bi bi-house-door"></i> ${address.direccion}</p>
+                <p class="address-city mb-2 text-muted">${address.departamento}, ${address.pais} - ${address.codigoPostal}</p>
+                
+                <div class="mt-2" style="position: relative; z-index: 2;">
+                    <button class="btn btn-sm btn-outline-dark edit-address me-2" data-id="${address.id}">Editar</button> 
+                    <button class="btn btn-sm btn-outline-danger delete-address" data-id="${address.id}">Eliminar</button>
+                </div>
+            </div>
+        `).join('') : '<div class="text-center py-4"><i class="bi bi-geo-alt fs-1 text-muted"></i><p class="text-muted mt-2">No tienes una dirección guardada</p></div>';
+        
+        // Evento para seleccionar la dirección (al hacer clic en cualquier parte de la tarjeta)
+        document.querySelectorAll('.address-card').forEach(card => {
+            card.addEventListener('click', function(e) {
+                // Evitamos que se seleccione si el usuario hace clic en los botones de editar/eliminar
+                if(e.target.closest('.edit-address') || e.target.closest('.delete-address')) return;
+                
+                selectedAddressId = parseInt(this.dataset.id);
+                renderAddresses(); // Re-renderizamos para que se actualicen los bordes y el radio button
+            });
+        });
+
+        // Configurar los botones de Editar
+        document.querySelectorAll('.edit-address').forEach(button => button.onclick = (e) => {
+            e.stopPropagation(); // Evita que la tarjeta se seleccione al intentar editar
+            openAddress(addresses.find(a => String(a.id) === button.dataset.id));
+        });
+        
+        // Configurar los botones de Eliminar
+        document.querySelectorAll('.delete-address').forEach(button => button.onclick = async (e) => { 
+            e.stopPropagation(); // Evita que la tarjeta se seleccione al intentar eliminar
+            if (confirm('¿Eliminar esta dirección?')) { 
+                await fetch('/api/direcciones/' + button.dataset.id, { method: 'DELETE' }); 
+                
+                // Si borramos la dirección que estaba seleccionada, limpiamos la selección
+                if (selectedAddressId === parseInt(button.dataset.id)) {
+                    selectedAddressId = null; 
+                }
+                await loadAddresses(); 
+            } 
+        });
     }
 
     async function loadAddresses() {
@@ -45,22 +101,60 @@ document.addEventListener('DOMContentLoaded', () => {
         renderAddresses();
     }
 
+    document.getElementById('editAddressBtn')?.addEventListener('click', () => openAddress(null));
+
     function openAddress(address) {
         editingAddressId = address?.id || null;
-        document.getElementById('dirTitulo').value = address ? 'Direccion guardada' : '';
-        document.getElementById('dirCalle').value = address?.direccion || '';
+        
+        // Llenar los campos con los datos de la dirección o valores por defecto
+        document.getElementById('dirPais').value = address?.pais || 'Perú';
+        document.getElementById('dirDepartamento').value = address?.departamento || '';
         document.getElementById('dirDistrito').value = address?.distrito || '';
-        document.getElementById('dirReferencia').value = '';
-        document.getElementById('modalDireccionLabel').textContent = address ? 'Editar Direccion' : 'Agregar Direccion';
+        document.getElementById('dirCodigoPostal').value = address?.codigoPostal || '';
+        document.getElementById('dirDireccion').value = address?.direccion || '';
+        document.getElementById('dirPais').value = address?.pais || 'Perú';
+        document.getElementById('dirDepartamento').value = address?.departamento || '';
+        
+        document.getElementById('modalDireccionLabel').textContent = address ? 'Editar Dirección' : 'Agregar Dirección';
         modal?.show();
     }
 
-    document.getElementById('editAddressBtn')?.addEventListener('click', () => openAddress(addresses[0]));
     document.getElementById('formNuevaDireccion')?.addEventListener('submit', async event => {
         event.preventDefault();
-        const data = { pais: 'Peru', departamento: 'Lima', distrito: document.getElementById('dirDistrito').value.trim(), direccion: `${document.getElementById('dirCalle').value.trim()}${document.getElementById('dirReferencia').value.trim() ? ', ' + document.getElementById('dirReferencia').value.trim() : ''}`, codigoPostal: '00000' };
-        const response = await fetch('/api/direcciones' + (editingAddressId ? '/' + editingAddressId : ''), { method: editingAddressId ? 'PUT' : 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
-        if (response.ok) { modal?.hide(); await loadAddresses(); } else alert('No se pudo guardar la direccion.');
+        
+        // Recoger los datos exactos que pide el modelo Direccion.java
+        const data = { 
+            pais: document.getElementById('dirPais').value.trim(), 
+            departamento: document.getElementById('dirDepartamento').value.trim(), 
+            distrito: document.getElementById('dirDistrito').value.trim(), 
+            direccion: document.getElementById('dirDireccion').value.trim(), 
+            codigoPostal: document.getElementById('dirCodigoPostal').value.trim() 
+        };
+        
+        const token = localStorage.getItem('token'); // O ajusta si usas otra key para tu JWT
+        const authHeaders = token ? { 'Authorization': `Bearer ${token}` } : {};
+
+        try {
+            const response = await fetch('/api/direcciones' + (editingAddressId ? '/' + editingAddressId : ''), { 
+                method: editingAddressId ? 'PUT' : 'POST', 
+                headers: { 
+                    'Content-Type': 'application/json',
+                    ...authHeaders
+                }, 
+                body: JSON.stringify(data) 
+            });
+            
+            if (response.ok) { 
+                modal?.hide(); 
+                await loadAddresses(); 
+            } else {
+                const err = await response.text();
+                alert('No se pudo guardar la dirección. Error: ' + err);
+            }
+        } catch (error) {
+            console.error("Error al guardar la dirección:", error);
+            alert("No se pudo conectar con el servidor.");
+        }
     });
 
     function renderPayments() {
@@ -91,7 +185,8 @@ document.addEventListener('DOMContentLoaded', () => {
             // A. Validaciones iniciales
             if (!cart || cart.length === 0) return alert('No hay productos en el carrito.');
             if (!addresses || addresses.length === 0) return alert('Agrega una dirección de entrega antes de pagar.');
-            
+            if (!selectedAddressId) return alert('Por favor, selecciona a qué dirección quieres enviar tu pedido.');
+
             const userJson = localStorage.getItem('velvetEssenceUser');
             if (!userJson) {
                 alert('Debes iniciar sesión para finalizar la compra.');
@@ -139,9 +234,10 @@ document.addEventListener('DOMContentLoaded', () => {
             // D. Crear el objeto exacto que espera Spring Boot
             const nuevoPedido = {
                 usuario: { id: parseInt(user.id) },
-                direccion: { id: parseInt(addresses[0].id) },
+                direccion: { id: selectedAddressId },
                 fechaPedido: new Date().toISOString(),
-                totalPagado: totalPagado,
+                // Forzamos la conversión a Number; si algo falla, por defecto envía 0.0, nunca null
+                totalPagado: Number(totalPagado) || 0.0, 
                 pedidoDetalles: pedidoDetalles
             };
 
@@ -150,9 +246,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 btnPagarAhora.innerHTML = '<i class="bi bi-hourglass-split"></i> Procesando...';
                 btnPagarAhora.disabled = true;
 
+                // Como la autenticación viaja de forma segura por la Cookie 'jwtToken' (visible en tu captura),
+                // eliminamos el header 'Authorization' que estaba enviando el string "null".
                 const response = await fetch('/api/pedidos', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: { 
+                        'Content-Type': 'application/json'
+                    },
                     body: JSON.stringify(nuevoPedido)
                 });
 

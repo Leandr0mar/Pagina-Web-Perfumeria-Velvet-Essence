@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Catálogo | Velvet Essence</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/admin.css}">
+</head>
+<body class="admin-body">
+
+    <div th:replace="~{fragments/admin-sidebar :: sidebar('perfumes')}"></div>
+
+    <main class="admin-content">
+        <header class="admin-topbar mb-5">
+            <div>
+                <h1 class="titulo">Catálogo de Perfumes</h1>
+                <p class="text-muted monserat small">Añade, edita o elimina productos del inventario.</p>
+            </div>
+        </header>
+
+        <section class="admin-section mb-5">
+            <div class="section-header">
+                <h2 class="titulo d-none">Lista de Perfumes</h2>
+                <button class="btn btn-auth btn-auth-register ms-auto" id="btnNewPerfume">
+                    <i class="bi bi-plus-lg"></i> Nuevo Perfume
+                </button>
+            </div>
+            <div class="custom-card">
+                <div class="table-responsive">
+                    <table class="table custom-table align-middle">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Marca</th>
+                                <th>Precio</th>
+                                <th>Stock</th>
+                                <th class="text-end">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="p : ${perfumes}">
+                                <td class="fw-bold" th:text="${p.nombre}">Perfume</td>
+                                <td class="text-muted" th:text="${p.marca}">Marca</td>
+                                <td th:text="'S/ ' + ${p.precio}">0.00</td>
+                                <td>
+                                    <span th:class="${p.stock > 10 ? 'badge bg-success-subtle text-success' : 'badge bg-danger-subtle text-danger'}" 
+                                          th:text="${p.stock} + ' und'">0</span>
+                                </td>
+                                <td class="text-end">
+                                    <button class="btn btn-sm btn-action edit-perfume" th:data-id="${p.id}" title="Editar"><i class="bi bi-pencil"></i></button>
+                                    <button class="btn btn-sm btn-action delete-perfume" th:data-id="${p.id}" title="Eliminar"><i class="bi bi-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr th:if="${#lists.isEmpty(perfumes)}">
+                                <td colspan="5" class="text-center py-4 text-muted">No hay perfumes registrados.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div class="modal fade" id="perfumeModal" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content rounded-0 border-0">
+                <div class="modal-header bg-dark text-white rounded-0 border-0">
+                    <h5 class="modal-title titulo" id="perfumeModalTitle">Nuevo Perfume</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <form id="perfumeForm">
+                    <div class="modal-body p-4 monserat">
+                        <input type="hidden" id="perfId">
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold">Nombre del Perfume</label>
+                                <input type="text" class="form-control form-control-custom" id="perfNombre" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold">Marca</label>
+                                <input type="text" class="form-control form-control-custom" id="perfMarca" required>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <label class="form-label small fw-bold">Precio (S/)</label>
+                                <input type="number" step="0.01" class="form-control form-control-custom" id="perfPrecio" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label small fw-bold">Stock</label>
+                                <input type="number" class="form-control form-control-custom" id="perfStock" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label small fw-bold">Categoría</label>
+                                <input type="text" class="form-control form-control-custom" id="perfCategoria" value="Eau de Parfum" required>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold">Descripción</label>
+                            <textarea class="form-control form-control-custom" id="perfDescripcion" rows="2" required></textarea>
+                        </div>
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                    <label class="form-label small fw-bold">URL de Imagen</label>
+                                    <input type="text" class="form-control form-control-custom" id="perfImagen" placeholder="https://..." required>
+                                    <!-- ESTO ES LO QUE NECESITABAS -->
+                                    <div class="mt-2 text-center bg-white border p-1 rounded" style="height: 120px;">
+                                        <img id="perfImagenPreview" src="https://placehold.co/100x100/f8f2e9/b38b60?text=Vista+Previa" alt="Vista previa" style="max-height: 100%; object-fit: contain;">
+                                    </div>
+                                </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold">Género</label>
+                                <select class="form-select form-control-custom" id="perfGenero">
+                                    <option value="Femenino">Femenino</option>
+                                    <option value="Masculino">Masculino</option>
+                                    <option value="Unisex">Unisex</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer border-0 bg-light p-4">
+                        <button type="button" class="btn btn-auth btn-auth-login" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-auth btn-auth-register">Guardar Perfume</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script th:src="@{/js/admin.js}"></script>
+</body>
+</html>

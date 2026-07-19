@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+    <aside class="admin-sidebar" th:fragment="sidebar(activeMenu)">
+        <div class="sidebar-header">
+            <span class="logo text-white">VELVET ESSENCE</span>
+            <p class="admin-subtitle">Admin Panel</p>
+        </div>
+        <nav class="sidebar-nav">
+            <!-- La clase 'active' se asigna dinámicamente según la página actual -->
+            <a href="/admin/dashboard" th:classappend="${activeMenu == 'dashboard'} ? 'active' : ''"><i class="bi bi-grid"></i> Dashboard</a>
+            <a href="/admin/perfumes" th:classappend="${activeMenu == 'perfumes'} ? 'active' : ''"><i class="bi bi-droplet"></i> Catálogo Perfumes</a>
+            <a href="/admin/usuarios" th:classappend="${activeMenu == 'usuarios'} ? 'active' : ''"><i class="bi bi-people"></i> Usuarios</a>
+            <a href="/admin/pedidos" th:classappend="${activeMenu == 'pedidos'} ? 'active' : ''"><i class="bi bi-box-seam"></i> Pedidos</a>
+        </nav>
+        <div class="sidebar-footer">
+            <button id="logoutAdminBtn" class="btn-store" style="border:none;width:100%;cursor:pointer;"><i class="bi bi-box-arrow-right"></i> Cerrar sesión</button>
+        </div>
+    </aside>
+</body>
+</html>

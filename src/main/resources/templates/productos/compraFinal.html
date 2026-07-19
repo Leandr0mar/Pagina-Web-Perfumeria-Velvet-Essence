@@ -18,12 +18,68 @@
         rel="stylesheet">
 
     <!-- CSS Personalizado -->
+         <link rel="stylesheet" href="css/style.css">
+
     <link rel="stylesheet" href="/css/compraFinal.css">
 </head>
 
 <body>
 
-    <div class="container">
+    <!-- NAVEGACIÓN DE CABECERA - Barra superior con logo y menú -->
+    <nav class="navbar navbar-expand-lg fixed-top custom-navbar">
+        <div class="container-fluid px-4">
+            <!-- Logo y nombre de la marca (parte izquierda del navbar) -->
+            <a class="navbar-brand logo d-flex align-items-center" href="/inicio">
+                 <img src="assets/logo/logo-dorado.png" alt="Logo Velvet Essence" width="40" height="40" class="d-inline-block align-text-top me-2">
+                 Velvet Essence
+            </a>
+
+
+            <!-- Contenedor que agrupa Iconos + Hamburguesa solo en celular -->
+            <div class="d-flex align-items-center justify-content-between d-lg-none ms-auto gap-3">
+                
+
+
+                <!-- Botón hamburguesa -->
+                <button class="navbar-toggler border-0 p-0" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+            </div>
+
+            <!-- Menú colapsable con enlaces de navegación e iconos -->
+            <div class="collapse navbar-collapse justify-content-between px-4" id="menu">
+                <!-- Enlaces del menú (Inicio, Perfumes, etc.) -->
+                <ul class="navbar-nav mx-auto text-center">
+                    <li class="nav-item"><a class="nav-link active" href="/inicio">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/productos">Perfumes</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/colecciones">Colecciones</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/nosotros">Nosotros</a></li>
+                    <ul id="mobileAuthList" class="navbar-nav mx-auto text-center d-lg-none mt-3">
+                        <li class="nav-item"><a class="nav-link" href="/iniciar-sesion">Iniciar sesión</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/registrarse">Registrarse</a></li>
+                    </ul>
+                </ul>
+                    <!-- Botones de sesión -->
+                <div id="desktopAuthSection" class="navbar-auth-buttons d-none d-lg-flex align-items-center gap-4">
+                    
+                    <!-- SOLUCIÓN: Agregada la clase 'd-flex' aquí para que funcione el gap-4 -->
+                    <div class="search-box d-flex align-items-center justify-content-center gap-4">
+                        <i class="bi bi-search fs-5 icon-hover"></i>
+                        <i class="bi bi-bag fs-5 icon-hover"></i>
+                    </div>
+                    
+                    <!-- Botones de acceso (parte derecha) -->
+                    <div class="d-flex align-items-center justify-content-center gap-3 py-3 py-lg-0 mfk-icons">
+                        <a href="/iniciar-sesion" class="btn btn-auth btn-auth-login">Iniciar sesión</a>
+                        <a href="/registrarse" class="btn btn-auth btn-auth-register">Registrarse</a>
+                    </div>
+                </div> 
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-5 pt-5">
         <div class="header">
             <div class="logo">
                 <span>VELVET ESSENCE</span>
@@ -185,7 +241,7 @@
         </div>
     </div>
 
-    <!-- ===== MODAL DE NUEVA DIRECCIÓN ===== -->
+<!-- ===== MODAL DE NUEVA DIRECCIÓN ===== -->
     <div class="modal fade" id="modalDireccion" tabindex="-1" aria-labelledby="modalDireccionLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content rounded-0 border-0">
@@ -194,24 +250,31 @@
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 
-                <!-- Formulario que respeta los atributos de tu modelo Direccion -->
                 <form id="formNuevaDireccion">
                     <div class="modal-body px-4 py-4">
-                        <div class="mb-3">
-                            <label for="dirTitulo" class="form-label small fw-bold">Título (Ej. Casa, Trabajo)</label>
-                            <input type="text" class="form-control rounded-0" id="dirTitulo" name="titulo" required>
+                        <div class="row mb-3">
+                            <div class="col-6">
+                                <label for="dirPais" class="form-label small fw-bold">País</label>
+                                <input type="text" class="form-control rounded-0" id="dirPais" name="pais" required maxlength="50" value="Perú">
+                            </div>
+                            <div class="col-6">
+                                <label for="dirDepartamento" class="form-label small fw-bold">Departamento</label>
+                                <input type="text" class="form-control rounded-0" id="dirDepartamento" name="departamento" required maxlength="50">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-6">
+                                <label for="dirDistrito" class="form-label small fw-bold">Distrito / Ciudad</label>
+                                <input type="text" class="form-control rounded-0" id="dirDistrito" name="distrito" required maxlength="50">
+                            </div>
+                            <div class="col-6">
+                                <label for="dirCodigoPostal" class="form-label small fw-bold">Código Postal</label>
+                                <input type="text" class="form-control rounded-0" id="dirCodigoPostal" name="codigoPostal" required maxlength="10">
+                            </div>
                         </div>
                         <div class="mb-3">
-                            <label for="dirCalle" class="form-label small fw-bold">Calle / Avenida / Nro</label>
-                            <input type="text" class="form-control rounded-0" id="dirCalle" name="calle" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="dirDistrito" class="form-label small fw-bold">Distrito / Ciudad</label>
-                            <input type="text" class="form-control rounded-0" id="dirDistrito" name="distrito" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="dirReferencia" class="form-label small fw-bold">Referencia (Opcional)</label>
-                            <input type="text" class="form-control rounded-0" id="dirReferencia" name="referencia" placeholder="Cerca a...">
+                            <label for="dirDireccion" class="form-label small fw-bold">Dirección Completa (Calle, Mz, Lote, Referencia)</label>
+                            <textarea class="form-control rounded-0" id="dirDireccion" name="direccion" required maxlength="200" rows="2" placeholder="Ej. Av. Principal 123, frente al parque"></textarea>
                         </div>
                     </div>
                     <div class="modal-footer border-0 bg-light">
@@ -223,8 +286,67 @@
         </div>
     </div>
 
+    <!-- PIE DE PÁGINA (FOOTER) - Información de contacto y enlaces -->
+    <footer class="footer pt-5 pb-3 mt-5">
+        <div class="container">
+            <div class="row">
+
+                <!-- Sección de marca (izquierda) -->
+                <div class="col-md-4 mb-4 text-center"> 
+                    <h2>VELVET ESSENCE</h2>
+                    <p>Fragancias exclusivas que reflejan tu esencia y personalidad.</p>
+                </div>
+
+                <!-- Sección de navegación (enlaces del menú) -->
+                <div class="col-md-2 mb-4 text-center">
+                    <h5>Menu</h5>
+                    <a href="#">Inicio</a><br>
+                    <a href="#">Perfumes</a><br>
+                    <a href="#">Colecciones</a><br>
+                    <a href="#">Nosotros</a>
+                </div>
+
+                <!-- Sección de contacto (teléfono y email) -->
+                <div class="col-md-3 mb-4 text-center">
+                    <h5>Contacto</h5>
+                    <p>Lima, Perú</p>
+                    <p>+51 999 999 999</p>
+                    <p>contacto@velvet.com</p>
+                </div>
+
+                <!-- Sección de suscripción (formulario de email con validación) -->
+                <div class="col-md-3 mb-4 text-center">
+                    <h5>Suscríbete</h5>
+                    <p>Recibe novedades y ofertas exclusivas.</p>
+                    <!-- Formulario de suscripción con validación JavaScript -->
+                    <form id="subscribeForm">
+                        <!-- Campo de email obligatorio -->
+                        <input type="email" class="form-control mb-2 rounded-0" id="emailSuscripcion" placeholder="Tu email" required>
+                        <!-- Alerta de error (oculta por defecto) -->
+                        <div id="errorSubscribe" class="alert alert-danger alert-sm d-none mb-2" role="alert" style="font-size: 12px;">
+                            Por favor ingresa un email válido
+                        </div>
+                        <!-- Botón de envío con evento submit -->
+                        <button type="submit" class="btn btn-dark rounded-0 w-100">Enviar</button>
+                    </form>
+                </div>
+
+            </div>
+
+            <!-- Copyright y versión -->
+            <div class="footer-bottom text-center">
+                <p class="mb-0">
+                    © 2026 Velvet Essence — v1.5
+                </p>
+            </div>
+
+        </div>
+    </footer>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/js/compraFinal.js"></script>
+    <script src="js/script.js"></script>
+
 </body>
 
 </html>

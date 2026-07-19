@@ -357,3 +357,24 @@ document.addEventListener('DOMContentLoaded', () => {
         cartSidebar?.classList.add('open');
     }));
 });
+
+
+
+document.addEventListener('click', (e) => {
+
+    // Verificar si el clic fue en el botón de eliminar o dentro de él (el ícono de basura)
+    const clickedRemove = e.target.closest('.remove-item');
+
+    if (
+        !cartSidebar.contains(e.target) &&
+        !cartBtn.contains(e.target) &&
+        !clickedRemove && // ← EXCEPCIÓN: Si es el botón de eliminar, NO cierres el carrito
+        cartSidebar.classList.contains('open')
+    ) {
+        cartSidebar.classList.remove('open');
+    }
+});
+
+if (typeof loadCart === 'function') {
+    loadCart();
+}

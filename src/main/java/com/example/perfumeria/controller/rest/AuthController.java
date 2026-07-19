@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -15,6 +16,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -55,7 +57,13 @@ public class AuthController {
         cookie.setMaxAge(60 * 60 * 10);
         response.addCookie(cookie);
 
-        boolean admin = user.getAuthorities().stream().anyMatch(a -> "ROLE_ADMIN".equals(a.getAuthority()));
+        // Extraemos los roles como una lista de Strings
+        List<String> roles = user.getAuthorities().stream()
+                .map(a -> a.getAuthority())
+                .toList();
+
+        boolean admin = roles.contains("ROLE_ADMIN");
+        
         return ResponseEntity.ok(Map.of(
                 "message", "Autenticacion exitosa",
                 "redirectUrl", admin ? "/admin/dashboard" : "/inicio",
@@ -63,7 +71,8 @@ public class AuthController {
                         "id", usuario.getId(),
                         "nombre", usuario.getNombre(),
                         "apellido", usuario.getApellido(),
-                        "correo", usuario.getCorreo()
+                        "correo", usuario.getCorreo(),
+                        "roles", roles // <-- ¡Ahora sí enviamos los roles!
                 )
         ));
     }

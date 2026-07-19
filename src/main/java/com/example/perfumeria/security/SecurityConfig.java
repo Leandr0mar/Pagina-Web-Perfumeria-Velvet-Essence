@@ -46,7 +46,7 @@ public class SecurityConfig {
                 if (request.getRequestURI().startsWith("/api/") || request.getRequestURI().startsWith("/auth/")) {
                     response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Autenticacion requerida");
                 } else {
-                    response.sendRedirect("/inicio");
+                    response.sendRedirect("/iniciar-sesion");
                 }
             }))
             .authenticationProvider(authenticationProvider())
