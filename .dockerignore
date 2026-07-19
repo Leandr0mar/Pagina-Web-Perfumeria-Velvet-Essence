@@ -1,0 +1,11 @@
+target/
+.git/
+.gitattributes
+.gitignore
+.mvn/
+.vscode/
+capturas/
+NOTAS.txt
+README.md
+mvnw
+mvnw.cmd
