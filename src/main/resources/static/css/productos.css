@@ -277,7 +277,7 @@ body {
 
 .product-price {
     font-family: var(--font-serif);
-    font-size: 22px;
+    font-size: 16px;
     font-weight: 600;
 }
 
@@ -1100,5 +1100,31 @@ body {
         font-size: 13px !important;
         border-radius: 14px !important;
         padding: 0 14px !important;
+    }
+}
+
+/* ===== PRECIO Y BOTÓN - UNA SOLA LÍNEA EN MÓVIL ===== */
+@media (max-width: 768px) {
+    .product-footer {
+        display: flex;
+        flex-direction: row !important;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        flex-wrap: nowrap !important;
+    }
+    
+    .product-price {
+        font-size: 16px;
+        font-weight: 700;
+        white-space: nowrap;
+        flex-shrink: 0;
+    }
+    
+    .btn-details {
+        font-size: 11px;
+        padding: 8px 14px;
+        white-space: nowrap;
+        flex-shrink: 0;
     }
 }
